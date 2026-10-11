@@ -22,7 +22,7 @@ export const generalFaqs: FaqItem[] = [
   {
     question: '¿Cómo funciona el pago 50/50?',
     answer:
-      'Abonás el 50% para empezar y reservar tu lugar en mi agenda, y el 50% restante antes del lanzamiento final. Si sos de Argentina, podés pagar en pesos según la cotización del día. Si estás en otro país, coordinamos la moneda y el medio de pago que te resulte más cómodo.',
+      'Abonás el 50% para empezar y reservar tu lugar en mi agenda, y el 50% restante antes del lanzamiento final. Si sos de Argentina, podés pagar en pesos según la cotización del día. Si sos de otro país, podés pagar en dólares o euros por transferencia internacional o PayPal.',
   },
   {
     question: '¿Voy a poder editar los contenidos yo mismo?',
@@ -37,11 +37,11 @@ export const generalFaqs: FaqItem[] = [
   {
     question: '¿Trabajás sola o con un equipo?',
     answer:
-      'Trabajo directo con vos de principio a fin. Si un proyecto es grande y conviene sumar a alguien (diseño, redacción, etc.), lo hago con colaboradores de confianza, y yo sigo siendo tu único contacto y la responsable del resultado.',
+      'Trabajo directo con vos de principio a fin. Si un proyecto es grande y conviene sumar talento, lo hago con colaboradores de confianza, y yo sigo siendo tu único contacto y la responsable del resultado.',
   },
   {
     question: '¿Trabajás con clientes de otros países?',
     answer:
-      'Sí. Trabajo 100% remoto con clientes de Argentina, Latinoamérica, España y otros países. Hacemos reuniones por videollamada, te muestro los avances por escrito y al final te entrego todos los accesos.',
+      'Sí. Trabajo 100% remoto con clientes de Argentina, Latinoamérica, España y otros países. Coordinamos reuniones por videollamada y nos comunicamos por email o WhatsApp. No hay barreras de distancia ni de horario.',
   },
 ];

@@ -8,5 +8,6 @@ export const site = {
     // TODO: reemplazar por tus perfiles reales
     github: 'https://github.com/',
     linkedin: 'https://www.linkedin.com/',
+    instagram: 'https://www.instagram.com/',
   },
 };

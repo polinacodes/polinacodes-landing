@@ -1,17 +1,100 @@
 ---
-import { site } from '../config/site';
+import { site } from "../config/site";
+import { services } from "../data/services";
+import Instagram from "./icons/Instagram.astro";
+import Linkedin from "./icons/Linkedin.astro";
+import Github from "./icons/Github.astro";
+
 const year = new Date().getFullYear();
+
+const socials = [
+  { name: "Instagram", href: site.social.instagram, Icon: Instagram },
+  { name: "LinkedIn", href: site.social.linkedin, Icon: Linkedin },
+  { name: "GitHub", href: site.social.github, Icon: Github },
+];
+
+const navLinks = [
+  { label: "Servicios", href: "/#servicios" },
+  { label: "Portfolio", href: "/#portfolio" },
+  { label: "Proceso", href: "/#proceso" },
+  { label: "Preguntas frecuentes", href: "/#faqs" },
+  { label: "Contacto", href: "/#contacto" },
+];
+
+const legalLinks = [
+  { label: "Política de privacidad", href: "/privacity" },
+  // { label: 'Aviso legal', href: '/aviso-legal' },
+];
 ---
 
 <footer class="site-footer">
-  <div class="container footer-inner">
-    <a class="brand" href="/">Polina<span>.</span>codes</a>
-    <div class="footer-links">
-      <a href={site.social.github} target="_blank" rel="noopener noreferrer">GitHub</a>
-      <a href={site.social.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
-      <a href="#">Aviso legal</a>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="brand" href="/">Polina<span>.</span>codes</a>
+        <p>
+          Desarrollo páginas web, tiendas online y sistemas a medida. Trabajo
+          remoto con clientes de Argentina, Latinoamérica y España.
+        </p>
+        <ul class="socials">
+          {
+            socials.map(({ name, href, Icon }) => (
+              <li>
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={name}
+                >
+                  <Icon />
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <nav class="footer-col" aria-label="Servicios">
+        <h2>Servicios</h2>
+        <ul>
+          {
+            services.map((s) => (
+              <li>
+                <a href={s.hasPage ? `/servicios/${s.slug}` : "/#servicios"}>
+                  {s.name}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <nav class="footer-col" aria-label="Secciones del sitio">
+        <h2>Navegación</h2>
+        <ul>
+          {
+            navLinks.map((l) => (
+              <li>
+                <a href={l.href}>{l.label}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
     </div>
-    <p>© {year} {site.name}. Todos los derechos reservados.</p>
+
+    <div class="footer-bottom">
+      <p>© {year} {site.name}</p>
+      <ul>
+        {
+          legalLinks.map((l) => (
+            <li>
+              <a href={l.href}>{l.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
   </div>
 </footer>
 
@@ -20,27 +103,104 @@ const year = new Date().getFullYear();
     background: #111;
     color: #aaa;
     border-top: 1px solid #292929;
-    padding: 30px 0;
+    padding: 64px 0 28px;
+    font-size: 14px;
   }
 
-  .footer-inner {
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 48px;
+    padding-bottom: 48px;
+  }
+
+  .footer-brand .brand {
+    color: #fff;
+    font-size: 20px;
+  }
+  .footer-brand p {
+    margin: 16px 0 24px;
+    max-width: 340px;
+    line-height: 1.6;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .socials {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 25px;
-    font-size: 10px;
+    gap: 10px;
   }
-  .footer-inner .brand { color: #fff; }
+  .socials a {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid #333;
+    border-radius: 50%;
+    color: #fff;
+    transition: color .2s, background .2s, border-color .2s;
+  }
 
-  .footer-links { display: flex; gap: 20px; }
-  .footer-links a:hover { color: #fff; }
+  .socials a:hover {
+    background: #fff;
+    border-color: #fff;
+    color: #111;
+  }
+
+  .footer-col h2 {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #fff;
+    margin: 0 0 18px;
+  }
+  .footer-col li {
+    margin-bottom: 12px;
+  }
+  .footer-col a:hover,
+  .footer-bottom a:hover {
+    color: #fff;
+  }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding-top: 24px;
+    border-top: 1px solid #292929;
+    font-size: 13px;
+  }
+  .footer-bottom p {
+    margin: 0;
+  }
+  .footer-bottom ul {
+    display: flex;
+    gap: 20px;
+  }
 
   @media (max-width: 768px) {
-    .footer-inner { flex-wrap: wrap; }
-    .footer-inner > p { width: 100%; order: 3; margin: 0; }
+    .site-footer {
+      padding-top: 48px;
+    }
+    .footer-top {
+      grid-template-columns: 1fr 1fr;
+      gap: 36px;
+    }
+    .footer-brand {
+      grid-column: 1 / -1;
+    }
   }
 
   @media (max-width: 420px) {
-    .footer-links { gap: 12px; }
+    .footer-top {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

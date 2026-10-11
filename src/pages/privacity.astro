@@ -1,0 +1,84 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+---
+
+<MainLayout
+  title="Política de privacidad | Polinacodes"
+  description="Cómo trato los datos personales que me enviás a través del formulario de contacto."
+>
+  <section class="section legal">
+    <div class="container prose">
+      <p class="eyebrow">LEGAL</p>
+      <h1 class="section-title">Política de privacidad</h1>
+      <p class="updated">Última actualización: 11 de octubre de 2026</p>
+
+      <h2>1. Responsable</h2>
+      <p>
+        La responsable del tratamiento de tus datos es Polina Codes, con sitio web
+        polinacodes.dev. Podés escribirme a hola@polinacodes.dev.
+      </p>
+
+      <h2>2. Qué datos recopilo</h2>
+      <p>
+        Solo los que completás en el formulario de contacto: nombre, email, servicio de interés,
+        presupuesto estimado y el mensaje sobre tu proyecto. Además, el servidor de alojamiento puede
+        registrar datos técnicos básicos de la visita, como la dirección IP.
+      </p>
+
+      <h2>3. Para qué los uso</h2>
+      <p>
+        Únicamente para responder tu consulta y, si avanzamos, preparar el presupuesto y comunicarme
+        con vos sobre el proyecto. No uso tus datos para publicidad ni los vendo a terceros.
+      </p>
+
+      <h2>4. Base legal</h2>
+      <p>
+        Tu consentimiento, que das al marcar la casilla del formulario antes de enviarlo. Podés
+        retirarlo cuando quieras.
+      </p>
+
+      <h2>5. Con quién los comparto</h2>
+      <p>Para que el formulario funcione utilizo estos proveedores:</p>
+      <ul>
+        <li><strong>Resend</strong>: servicio de envío de email, por el que me llega tu consulta.</li>
+        <li><strong>Vercel</strong>: alojamiento del sitio web.</li>
+      </ul>
+      <p>
+        Estos proveedores pueden procesar datos en servidores fuera de tu país, incluidos los
+        Estados Unidos.
+      </p>
+
+      <h2>6. Cuánto tiempo los conservo</h2>
+      <p>
+        Mientras dure nuestra conversación o el proyecto y, si no se concreta, por un máximo de
+        [PLAZO, p. ej. 24 meses]. Después los elimino.
+      </p>
+
+      <h2>7. Tus derechos</h2>
+      <p>
+        Podés pedirme acceso, rectificación o eliminación de tus datos, y oponerte a su tratamiento,
+        escribiendo a hola@polinacodes.dev. También podés presentar un reclamo ante la autoridad de
+        protección de datos de tu país (en Argentina, la Agencia de Acceso a la Información Pública;
+        en España, la Agencia Española de Protección de Datos).
+      </p>
+
+      <h2>8. Cookies</h2>
+      <p>Este sitio no utiliza cookies de seguimiento ni de publicidad.</p>
+
+      <h2>9. Cambios en esta política</h2>
+      <p>
+        Si la modifico, actualizo la fecha de este documento. Te recomiendo revisarlo de vez en
+        cuando.
+      </p>
+    </div>
+  </section>
+</MainLayout>
+
+<style>
+  .legal { padding-top: 160px; }
+  .prose { max-width: 760px; }
+  .updated { color: #777; font-size: 13px; margin: 0 0 40px; }
+  h2 { font-size: 20px; letter-spacing: -.02em; margin: 36px 0 10px; }
+  p, li { color: var(--text-secondary); line-height: 1.75; }
+  ul { padding-left: 20px; }
+</style>
