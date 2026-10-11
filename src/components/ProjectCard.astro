@@ -1,0 +1,144 @@
+---
+import { Image } from 'astro:assets';
+import type { Project } from '../data/projects';
+
+interface Props {
+  project: Project;
+}
+
+const { title, description, technologies, url, image, imageAlt, mockup = 'shop', metric } = Astro.props.project;
+
+// Placeholders visuales mientras el proyecto no tenga `image`
+const mockups = {
+  shop: { label: 'SHOP', headline: 'Simple. Rápida.<br>Lista para vender.' },
+  agency: { label: 'STUDIO', headline: 'Tu marca.<br>En movimiento.' },
+  crm: { label: 'CRM', headline: 'Todo tu negocio<br>en un solo lugar.' },
+};
+const m = mockups[mockup];
+---
+
+<article class="project-card">
+  {
+    image ? (
+      <div class="mockup mockup-photo">
+        <Image src={image} alt={imageAlt ?? title} width={640} />
+      </div>
+    ) : (
+      <div class={`mockup ${mockup}`} aria-hidden="true">
+        <div class="mock-browser"><b></b><b></b><b></b></div>
+        <div class="mock-content">
+          <span>{m.label}</span>
+          <strong set:html={m.headline} />
+          {mockup === 'shop' && (<><i></i><i></i></>)}
+          {mockup === 'agency' && <div class="mock-pill"></div>}
+          {mockup === 'crm' && <div class="dashboard"><i></i><i></i><i></i></div>}
+        </div>
+      </div>
+    )
+  }
+
+  <div class="project-info">
+    <div>
+      <h3>{title}</h3>
+      <p class="tech">{technologies.join(' · ')}</p>
+    </div>
+    {
+      metric && (
+        <strong class="score">
+          {metric.value}
+          <br />
+          <small>{metric.label}</small>
+        </strong>
+      )
+    }
+  </div>
+  <p class="description">{description}</p>
+  {url && <a class="text-link" href={url} target="_blank" rel="noopener noreferrer">Ver demo en vivo →</a>}
+</article>
+
+<style>
+  .project-card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px;
+    background: var(--bg-primary);
+  }
+
+  .mockup {
+    aspect-ratio: 1.25;
+    background: #e7e7ea;
+    border-radius: 12px;
+    overflow: hidden;
+    padding: 12px;
+  }
+
+  .mockup-photo { padding: 0; }
+  .mockup-photo :global(img) { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .mock-browser { height: 17px; display: flex; gap: 4px; }
+  .mock-browser b { width: 5px; height: 5px; border-radius: 50%; background: #999; }
+
+  .mock-content {
+    height: calc(100% - 17px);
+    border-radius: 8px;
+    background: #fff;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .mock-content span {
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: .15em;
+    color: #777;
+  }
+  .mock-content strong {
+    font-size: 25px;
+    line-height: 1.05;
+    letter-spacing: -.05em;
+    margin-top: 10px;
+    max-width: 240px;
+  }
+  .mock-content > i {
+    display: block;
+    width: 75%;
+    height: 7px;
+    background: #e5e5e5;
+    border-radius: 3px;
+    margin-top: 8px;
+  }
+  .mock-content > i:last-child { width: 50%; }
+
+  .agency .mock-content { background: #151515; color: #fff; }
+  .mock-pill {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    background: var(--accent-brand);
+    position: absolute;
+    right: 25px;
+    bottom: 22px;
+  }
+
+  .crm .mock-content { background: #f3f3f5; }
+  .dashboard { display: flex; gap: 7px; margin-top: 20px; }
+  .dashboard i { width: 40px; height: 26px; background: #ddd; border-radius: 5px; }
+
+  .project-info {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 20px 8px 4px;
+  }
+  h3 { font-size: 15px; margin: 0 0 5px; }
+  .tech { font-size: 11px; color: #777; margin: 0; }
+
+  .score { text-align: right; font-size: 16px; line-height: 1.1; }
+  .score small { font-size: 8px; font-weight: 600; color: #777; }
+
+  .description { font-size: 12px; color: var(--text-secondary); margin: 10px 8px 0; }
+  .text-link { margin-left: 8px; }
+</style>

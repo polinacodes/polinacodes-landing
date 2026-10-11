@@ -1,0 +1,64 @@
+---
+import ProjectCard from './ProjectCard.astro';
+import type { Project } from '../data/projects';
+
+interface Props {
+  projects: Project[];
+  eyebrow?: string;
+  title?: string;
+  intro?: string;
+  id?: string;
+}
+
+const {
+  projects,
+  eyebrow = 'TRABAJOS DESTACADOS',
+  title = 'Proyectos recientes y métricas reales',
+  intro = 'Una muestra del tipo de experiencia que podemos construir.',
+  id = 'portfolio',
+} = Astro.props;
+---
+
+{
+  projects.length > 0 && (
+    <section class="portfolio section" id={id}>
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">{eyebrow}</p>
+            <h2 class="section-title">{title}</h2>
+          </div>
+          <p class="section-lead">{intro}</p>
+        </div>
+        <div class="project-grid">
+          {projects.map((project) => <ProjectCard project={project} />)}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .portfolio { background: #fff; }
+
+  .section-heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 50px;
+    align-items: end;
+    margin-bottom: 45px;
+  }
+  .section-heading .section-lead { max-width: 330px; margin: 0; }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  @media (max-width: 768px) {
+    .section-heading { display: block; }
+    .section-heading .section-lead { margin-top: 18px; }
+    .project-grid { grid-template-columns: 1fr; }
+  }
+</style>

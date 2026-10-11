@@ -1,0 +1,36 @@
+---
+import ServiceCard from './ServiceCard.astro';
+import { services } from '../data/services';
+---
+
+<section class="section" id="servicios">
+  <div class="container">
+    <div class="section-intro narrow">
+      <p class="eyebrow">MENOS FRICCIÓN. MÁS RESULTADOS.</p>
+      <h2 class="section-title">¿Tu web actual es lenta o no genera las ventas que esperas?</h2>
+      <p class="section-lead">
+        Si tu sitio depende de plantillas pesadas, falla en el checkout o te deja sin soporte cuando más lo necesitas, podemos simplificarlo. Desarrollo soluciones rápidas, mantenibles y pensadas para que tu negocio pueda crecer.
+      </p>
+    </div>
+
+    <div class="service-grid">
+      {services.map((service) => <ServiceCard service={service} />)}
+    </div>
+  </div>
+</section>
+
+<style>
+  .service-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  @media (max-width: 1024px) {
+    .service-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 768px) {
+    .service-grid { grid-template-columns: 1fr; }
+  }
+</style>

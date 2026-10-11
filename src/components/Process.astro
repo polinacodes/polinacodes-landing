@@ -1,0 +1,97 @@
+---
+const steps = [
+  { title: 'Contacto & Diagnóstico', text: 'Revisamos lo que necesitas y tus objetivos.' },
+  { title: 'Propuesta & Presupuesto', text: 'Te envío el alcance del proyecto con costos y tiempos claros.' },
+  { title: 'Diseño & Desarrollo', text: 'Maquetación con actualizaciones periódicas del avance.' },
+  { title: 'Pruebas & Ajustes', text: 'Revisión conjunta para afinar los últimos detalles.' },
+  { title: 'Lanzamiento & Entrega', text: 'Despliegue en producción y entrega de accesos.' },
+];
+---
+
+<section class="section" id="proceso">
+  <div class="container">
+    <div class="section-intro">
+      <p class="eyebrow">UN PROCESO SIMPLE</p>
+      <h2 class="section-title">Cómo trabajamos paso a paso</h2>
+    </div>
+    <ol class="timeline">
+      {
+        steps.map((step, i) => (
+          <li>
+            <span class="step">{String(i + 1).padStart(2, '0')}</span>
+            <div>
+              <h3>{step.title}</h3>
+              <p>{step.text}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .timeline {
+    list-style: none;
+    padding: 25px 0 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    position: relative;
+  }
+  .timeline::before {
+    content: "";
+    position: absolute;
+    top: 53px;
+    left: 8%;
+    right: 8%;
+    height: 1px;
+    background: #D7D7DC;
+  }
+
+  li { position: relative; text-align: center; padding: 0 12px; }
+
+  .step {
+    display: grid;
+    place-items: center;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    margin: 0 auto 22px;
+    background: var(--text-primary);
+    color: #fff;
+    border: 7px solid var(--bg-primary);
+    position: relative;
+    z-index: 1;
+    font-size: 11px;
+    font-weight: 800;
+  }
+
+  h3 { font-size: 14px; margin: 0 0 7px; }
+  p { font-size: 11px; color: #666; margin: 0; }
+
+  @media (max-width: 1024px) {
+    li { padding: 0 5px; }
+  }
+
+  @media (max-width: 768px) {
+    .timeline { display: block; padding-top: 5px; }
+    .timeline::before {
+      left: 29px;
+      right: auto;
+      top: 20px;
+      bottom: 20px;
+      width: 1px;
+      height: auto;
+    }
+    li {
+      display: grid;
+      grid-template-columns: 58px 1fr;
+      text-align: left;
+      gap: 18px;
+      padding: 0 0 28px;
+    }
+    .step { margin: 0; }
+    li > div { padding-top: 8px; }
+  }
+</style>

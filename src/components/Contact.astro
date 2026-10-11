@@ -1,0 +1,176 @@
+---
+import { services, type ServiceSlug } from '../data/services';
+
+interface Props {
+  /** Servicio preseleccionado (útil en las páginas de servicio) */
+  defaultService?: ServiceSlug;
+}
+
+const { defaultService } = Astro.props;
+---
+
+<section class="contact section" id="contacto">
+  <div class="container contact-grid">
+    <div class="contact-copy">
+      <p class="eyebrow">CONTANOS TU IDEA</p>
+      <h2 class="section-title">Hablemos de tu próximo proyecto</h2>
+      <p class="section-lead">
+        Contanos qué necesitas, en qué punto estás y qué resultado querés conseguir. Te responderemos con próximos pasos claros.
+      </p>
+      <div class="contact-note">
+        <span aria-hidden="true">✦</span>
+        <div>
+          <strong>Respuesta directa, sin intermediarios.</strong>
+          <p>Analizamos el proyecto y vemos como podemos ayudarte.</p>
+        </div>
+      </div>
+    </div>
+
+    <form id="contact-form" class="contact-form" novalidate>
+      <div class="field-grid">
+        <div class="field">
+          <label for="name">Nombre</label>
+          <input id="name" name="name" type="text" autocomplete="name" required />
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" autocomplete="email" required />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="service">Servicio que necesitas</label>
+        <select id="service" name="service" required>
+          <option value="" selected={!defaultService}>Selecciona una opción</option>
+          {services.map((s) => <option value={s.slug} selected={s.slug === defaultService}>{s.formLabel}</option>)}
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="budget">Presupuesto estimado</label>
+        <select id="budget" name="budget" required>
+          <option value="">Selecciona un rango</option>
+          <option>Hasta USD 500</option>
+          <option>USD 500–1.000</option>
+          <option>USD 1.000–2.500</option>
+          <option>Más de USD 2.500</option>
+          <option>Aún no lo sé</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="message">Cuéntame brevemente sobre el proyecto</label>
+        <textarea id="message" name="message" rows="4" required></textarea>
+      </div>
+
+      <label class="check">
+        <input id="privacy" name="privacy" type="checkbox" required />
+        <span>Acepto la política de privacidad y el uso de mis datos para responder a mi consulta.</span>
+      </label>
+
+      <button class="btn form-submit" type="submit">Enviar consulta</button>
+      <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('#contact-form');
+  const status = document.querySelector<HTMLElement>('#form-status');
+  const serviceSelect = document.querySelector<HTMLSelectElement>('#service');
+
+  // Preselecciona el servicio al hacer click en "Pedir presupuesto" de una tarjeta
+  document.querySelectorAll<HTMLElement>('[data-service]').forEach((el) => {
+    el.addEventListener('click', () => {
+      if (serviceSelect) serviceSelect.value = el.dataset.service ?? '';
+    });
+  });
+
+  if (form && status) {
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        status.className = 'form-status error';
+        status.textContent = 'Revisa los campos obligatorios antes de enviar.';
+        return;
+      }
+
+      // TODO: enviar al endpoint de Astro (mismo que el portfolio)
+      const name = String(new FormData(form).get('name') ?? '').trim();
+      status.className = 'form-status success';
+      status.textContent = `¡Gracias${name ? `, ${name}` : ''}! Tu consulta fue validada correctamente.`;
+      form.reset();
+    });
+  }
+</script>
+
+<style>
+  .contact { background: #111; color: #fff; }
+
+  .contact-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 80px; }
+
+  .contact-copy .eyebrow { color: #aaa; }
+  .contact-copy .section-lead { color: #bdbdbd; }
+
+  .contact-note {
+    display: flex;
+    gap: 14px;
+    margin-top: 35px;
+    padding-top: 25px;
+    border-top: 1px solid #333;
+  }
+  .contact-note > span { color: var(--accent-brand); }
+  .contact-note strong { font-size: 13px; }
+  .contact-note p { font-size: 11px; color: #aaa; margin: 4px 0 0; }
+
+  .contact-form {
+    background: #fff;
+    color: #111;
+    border-radius: 22px;
+    padding: 30px;
+  }
+
+  .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .field { margin-bottom: 17px; }
+  .field label { display: block; font-size: 11px; font-weight: 800; margin-bottom: 7px; }
+
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%;
+    border: 1px solid #D9D9DF;
+    border-radius: 9px;
+    padding: 12px 13px;
+    background: #fff;
+    color: #111;
+    min-height: 45px;
+  }
+  .field textarea { resize: vertical; }
+
+  .check {
+    display: flex;
+    gap: 9px;
+    align-items: flex-start;
+    font-size: 10px;
+    color: #555;
+    margin: 4px 0 20px;
+  }
+  .check input { margin-top: 2px; accent-color: #111; }
+
+  .form-submit { width: 100%; }
+
+  .form-status { font-size: 12px; margin: 12px 0 0; text-align: center; min-height: 18px; }
+  .form-status.success { color: #19723c; }
+  .form-status.error { color: #b42318; }
+
+  @media (max-width: 768px) {
+    .contact-grid { grid-template-columns: 1fr; gap: 45px; }
+  }
+
+  @media (max-width: 420px) {
+    .field-grid { grid-template-columns: 1fr; gap: 0; }
+    .contact-form { padding: 22px; }
+  }
+</style>

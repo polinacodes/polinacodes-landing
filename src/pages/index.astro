@@ -1,0 +1,27 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import Hero from '../components/Hero.astro';
+import Services from '../components/Services.astro';
+import Portfolio from '../components/Portfolio.astro';
+import Process from '../components/Process.astro';
+import Faq from '../components/Faq.astro';
+import Contact from '../components/Contact.astro';
+import { getFeaturedProjects } from '../data/projects';
+import { generalFaqs } from '../data/faqs';
+import { buildBusinessSchema } from '../lib/schema';
+---
+
+<MainLayout
+  title="Desarrollo web y e-commerce freelance | Polinacodes"
+  description="Desarrollo web freelance, tiendas online, landing pages y sistemas a medida. Código limpio, alto rendimiento, SEO técnico y soporte directo."
+  ogTitle="Desarrollo web y tiendas online que hacen crecer tu negocio"
+  ogDescription="E-commerce, landing pages de alta velocidad y sistemas a medida, con código limpio y enfoque en resultados."
+  schema={buildBusinessSchema()}
+>
+  <Hero />
+  <Services />
+  <Portfolio projects={getFeaturedProjects()} />
+  <Process />
+  <Faq items={generalFaqs} />
+  <Contact />
+</MainLayout>

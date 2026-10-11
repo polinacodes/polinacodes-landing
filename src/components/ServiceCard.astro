@@ -1,0 +1,59 @@
+---
+import type { Service } from '../data/services';
+
+interface Props {
+  service: Service;
+}
+
+const { service } = Astro.props;
+const { slug, name, icon, summary, bullets, hasPage } = service;
+---
+
+<article class="service-card">
+  <div class="service-icon" aria-hidden="true">{icon}</div>
+  <h3>{name}</h3>
+  <p>{summary}</p>
+  <ul>
+    {bullets.map((b) => <li>{b}</li>)}
+  </ul>
+  <div class="card-actions">
+    <a class="btn btn-card" href="/#contacto" data-service={slug}>Pedir presupuesto</a>
+    {hasPage && <a class="text-link" href={`/servicios/${slug}`}>Ver detalle del servicio →</a>}
+  </div>
+</article>
+
+<style>
+  .service-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    min-height: 410px;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .service-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
+
+  .service-icon { font-size: 25px; margin-bottom: 22px; }
+
+  h3 {
+    font-size: 18px;
+    line-height: 1.25;
+    margin: 0 0 12px;
+    letter-spacing: -.02em;
+  }
+
+  .service-card > p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin: 0 0 18px;
+  }
+
+  ul { padding-left: 18px; margin: 0; color: #444; font-size: 12px; }
+  li { margin-bottom: 8px; }
+
+  .card-actions { margin-top: auto; padding-top: 24px; }
+
+  .btn-card { width: 100%; min-height: 43px; font-size: 12px; }
+</style>

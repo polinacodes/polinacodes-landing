@@ -1,0 +1,105 @@
+---
+import { site } from '../config/site';
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/" aria-label={`${site.name}, inicio`}>Polina<span>.</span>codes</a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-menu" aria-label="Abrir menú">
+      <span></span><span></span><span></span>
+    </button>
+    <nav id="main-menu" class="main-nav" aria-label="Navegación principal">
+      <a href="/#servicios">Servicios</a>
+      <a href="/#portfolio">Portfolio</a>
+      <a href="/#proceso">Proceso</a>
+      <a href="/#faqs">FAQs</a>
+      <a class="btn btn-small" href="/#contacto">Pedir presupuesto</a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const menuButton = document.querySelector<HTMLButtonElement>('.menu-toggle');
+  const menu = document.querySelector<HTMLElement>('#main-menu');
+
+  if (menuButton && menu) {
+    const setOpen = (open: boolean) => {
+      menu.classList.toggle('is-open', open);
+      menuButton.setAttribute('aria-expanded', String(open));
+      menuButton.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+    };
+
+    menuButton.addEventListener('click', () => setOpen(!menu.classList.contains('is-open')));
+    menu.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setOpen(false)));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') setOpen(false);
+    });
+  }
+</script>
+
+<style>
+  .site-header {
+    position: fixed;
+    z-index: 50;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(248, 248, 250, .94);
+    border-bottom: 1px solid rgba(229, 229, 234, .8);
+    backdrop-filter: blur(12px);
+  }
+
+  .header-inner {
+    min-height: var(--header-h);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .main-nav {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .main-nav > a:not(.btn) { color: #333; }
+  .main-nav > a:not(.btn):hover { color: var(--accent-brand); }
+
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: 0;
+    padding: 10px;
+    cursor: pointer;
+  }
+  .menu-toggle span {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background: #111;
+    margin: 5px 0;
+  }
+
+  @media (max-width: 768px) {
+    .menu-toggle { display: block; }
+
+    .main-nav {
+      position: absolute;
+      top: var(--header-h);
+      left: 0;
+      right: 0;
+      background: var(--bg-primary);
+      border-bottom: 1px solid var(--border);
+      display: none;
+      padding: 18px 16px 22px;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 5px;
+    }
+    .main-nav.is-open { display: flex; }
+    .main-nav > a:not(.btn) { padding: 12px 5px; }
+    .main-nav .btn { margin-top: 8px; }
+  }
+</style>

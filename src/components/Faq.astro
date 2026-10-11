@@ -1,0 +1,99 @@
+---
+import type { FaqItem } from '../data/faqs';
+
+interface Props {
+  items: FaqItem[];
+  eyebrow?: string;
+  title?: string;
+  intro?: string;
+  /** Prefijo de ids; cambialo si hay más de un <Faq> en la misma página */
+  idPrefix?: string;
+}
+
+const {
+  items,
+  eyebrow = 'RESOLVAMOS TUS DUDAS',
+  title = 'Preguntas frecuentes',
+  intro = 'Si no encontrás lo que buscas, podemos verlo juntos en una primera consulta.',
+  idPrefix = 'faq',
+} = Astro.props;
+---
+
+<section class="faqs section" id="faqs">
+  <div class="container faq-grid">
+    <div class="section-intro">
+      <p class="eyebrow">{eyebrow}</p>
+      <h2 class="section-title">{title}</h2>
+      <p class="section-lead">{intro}</p>
+    </div>
+
+    <div class="accordion">
+      {
+        items.map((item, i) => (
+          <div class="faq">
+            <button type="button" aria-expanded="false" aria-controls={`${idPrefix}-${i}`} id={`${idPrefix}-btn-${i}`}>
+              {item.question}
+              <span aria-hidden="true">+</span>
+            </button>
+            <div id={`${idPrefix}-${i}`} class="faq-answer" role="region" aria-labelledby={`${idPrefix}-btn-${i}`}>
+              <p>{item.answer}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.accordion').forEach((accordion) => {
+    const buttons = accordion.querySelectorAll<HTMLButtonElement>('.faq button');
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const wasOpen = button.getAttribute('aria-expanded') === 'true';
+        buttons.forEach((b) => b.setAttribute('aria-expanded', 'false'));
+        button.setAttribute('aria-expanded', String(!wasOpen));
+      });
+    });
+  });
+</script>
+
+<style>
+  .faqs { background: #fff; }
+
+  .faq-grid { display: grid; grid-template-columns: .75fr 1.25fr; gap: 90px; }
+
+  .accordion { border-top: 1px solid var(--border); }
+  .faq { border-bottom: 1px solid var(--border); }
+
+  .faq button {
+    width: 100%;
+    border: 0;
+    background: none;
+    text-align: left;
+    padding: 23px 0;
+    font-weight: 700;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+  }
+  .faq button span { font-size: 23px; font-weight: 400; transition: transform .2s; }
+  .faq button[aria-expanded="true"] span { transform: rotate(45deg); }
+
+  .faq-answer {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows .25s ease;
+  }
+  .faq-answer p { overflow: hidden; margin: 0; color: #666; font-size: 13px; }
+
+  .faq button[aria-expanded="true"] + .faq-answer { grid-template-rows: 1fr; }
+  .faq button[aria-expanded="true"] + .faq-answer p { padding: 0 35px 23px 0; }
+
+  @media (max-width: 768px) {
+    .faq-grid { grid-template-columns: 1fr; gap: 35px; }
+  }
+</style>
