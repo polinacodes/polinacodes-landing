@@ -1,7 +1,7 @@
 // Datos globales del sitio. Un solo lugar para cambiar nombre, dominio y redes.
 export const site = {
   name: 'Polinacodes',
-  url: 'https://www.polinacodes.dev', // mantenelo igual que `site` en astro.config.mjs
+  url: 'https://polinacodes.dev', // mantenelo igual que `site` en astro.config.mjs
   locale: 'es_AR',
   tagline: 'Desarrollo web freelance',
   social: {

@@ -1,5 +1,5 @@
 ---
-import { services, type ServiceSlug } from '../data/services';
+import { services, type ServiceSlug } from "../data/services";
 
 interface Props {
   /** Servicio preseleccionado (útil en las páginas de servicio) */
@@ -15,7 +15,8 @@ const { defaultService } = Astro.props;
       <p class="eyebrow">CONTANOS TU IDEA</p>
       <h2 class="section-title">Hablemos de tu próximo proyecto</h2>
       <p class="section-lead">
-        Contanos qué necesitas, en qué punto estás y qué resultado querés conseguir. Te responderemos con próximos pasos claros.
+        Contanos qué necesitas, en qué punto estás y qué resultado querés
+        conseguir. Te responderemos con próximos pasos claros.
       </p>
       <div class="contact-note">
         <span aria-hidden="true">✦</span>
@@ -30,19 +31,39 @@ const { defaultService } = Astro.props;
       <div class="field-grid">
         <div class="field">
           <label for="name">Nombre</label>
-          <input id="name" name="name" type="text" autocomplete="name" required />
+          <input
+            id="name"
+            name="name"
+            type="text"
+            autocomplete="name"
+            required
+          />
         </div>
         <div class="field">
           <label for="email">Email</label>
-          <input id="email" name="email" type="email" autocomplete="email" required />
+          <input
+            id="email"
+            name="email"
+            type="email"
+            autocomplete="email"
+            required
+          />
         </div>
       </div>
 
       <div class="field">
         <label for="service">Servicio que necesitas</label>
         <select id="service" name="service" required>
-          <option value="" selected={!defaultService}>Selecciona una opción</option>
-          {services.map((s) => <option value={s.slug} selected={s.slug === defaultService}>{s.formLabel}</option>)}
+          <option value="" selected={!defaultService}
+            >Selecciona una opción</option
+          >
+          {
+            services.map((s) => (
+              <option value={s.slug} selected={s.slug === defaultService}>
+                {s.formLabel}
+              </option>
+            ))
+          }
         </select>
       </div>
 
@@ -63,56 +84,105 @@ const { defaultService } = Astro.props;
         <textarea id="message" name="message" rows="4" required></textarea>
       </div>
 
+      <input
+        type="text"
+        name="hp_check"
+        class="hp"
+        tabindex="-1"
+        autocomplete="off"
+        aria-hidden="true"
+      />
+
       <label class="check">
         <input id="privacy" name="privacy" type="checkbox" required />
-        <span>Acepto la política de privacidad y el uso de mis datos para responder a mi consulta.</span>
+        <span
+          >Acepto la política de privacidad y el uso de mis datos para responder
+          a mi consulta.</span
+        >
       </label>
 
       <button class="btn form-submit" type="submit">Enviar consulta</button>
-      <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+      <p class="form-note" id="form-note">
+        Te respondo en menos de 24 hs hábiles. Sin compromiso.
+      </p>
+      <p class="form-status" id="form-status" role="status" aria-live="polite">
+      </p>
     </form>
   </div>
 </section>
 
 <script>
-  const form = document.querySelector<HTMLFormElement>('#contact-form');
-  const status = document.querySelector<HTMLElement>('#form-status');
-  const serviceSelect = document.querySelector<HTMLSelectElement>('#service');
+  const form = document.querySelector<HTMLFormElement>("#contact-form");
+  const status = document.querySelector<HTMLElement>("#form-status");
+  const serviceSelect = document.querySelector<HTMLSelectElement>("#service");
+  const note = document.querySelector<HTMLElement>("#form-note");
 
   // Preselecciona el servicio al hacer click en "Pedir presupuesto" de una tarjeta
-  document.querySelectorAll<HTMLElement>('[data-service]').forEach((el) => {
-    el.addEventListener('click', () => {
-      if (serviceSelect) serviceSelect.value = el.dataset.service ?? '';
+  document.querySelectorAll<HTMLElement>("[data-service]").forEach((el) => {
+    el.addEventListener("click", () => {
+      if (serviceSelect) serviceSelect.value = el.dataset.service ?? "";
     });
   });
 
   if (form && status) {
-    form.addEventListener('submit', (event) => {
+    form.addEventListener("submit", async (event) => {
       event.preventDefault();
 
       if (!form.checkValidity()) {
         form.reportValidity();
-        status.className = 'form-status error';
-        status.textContent = 'Revisa los campos obligatorios antes de enviar.';
+        status.className = "form-status error";
+        status.textContent = "Revisa los campos obligatorios antes de enviar.";
         return;
       }
 
-      // TODO: enviar al endpoint de Astro (mismo que el portfolio)
-      const name = String(new FormData(form).get('name') ?? '').trim();
-      status.className = 'form-status success';
-      status.textContent = `¡Gracias${name ? `, ${name}` : ''}! Tu consulta fue validada correctamente.`;
-      form.reset();
+      const submit = form.querySelector<HTMLButtonElement>('[type="submit"]');
+      if (submit) submit.disabled = true;
+      status.className = "form-status";
+      status.textContent = "Enviando...";
+      if (note) note.hidden = false;
+
+      try {
+        const res = await fetch("/api/contact", {
+          method: "POST",
+          body: new FormData(form),
+        });
+        const result = await res.json();
+        if (!res.ok || !result.success) throw new Error(result.error);
+
+        status.className = "form-status success";
+        status.textContent =
+          "¡Gracias! Recibí tu consulta, te respondo a la brevedad.";
+        if (note) note.hidden = true;
+        form.reset();
+      } catch {
+        status.className = "form-status error";
+        status.textContent =
+          "No pude enviar el mensaje. Probá de nuevo o escribime a hola@polinacodes.dev.";
+      } finally {
+        if (submit) submit.disabled = false;
+      }
     });
   }
 </script>
 
 <style>
-  .contact { background: #111; color: #fff; }
+  .contact {
+    background: #111;
+    color: #fff;
+  }
 
-  .contact-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 80px; }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 80px;
+  }
 
-  .contact-copy .eyebrow { color: #aaa; }
-  .contact-copy .section-lead { color: #bdbdbd; }
+  .contact-copy .eyebrow {
+    color: #aaa;
+  }
+  .contact-copy .section-lead {
+    color: #bdbdbd;
+  }
 
   .contact-note {
     display: flex;
@@ -121,9 +191,17 @@ const { defaultService } = Astro.props;
     padding-top: 25px;
     border-top: 1px solid #333;
   }
-  .contact-note > span { color: var(--accent-brand); }
-  .contact-note strong { font-size: 13px; }
-  .contact-note p { font-size: 11px; color: #aaa; margin: 4px 0 0; }
+  .contact-note > span {
+    color: var(--accent-brand);
+  }
+  .contact-note strong {
+    font-size: 13px;
+  }
+  .contact-note p {
+    font-size: 11px;
+    color: #aaa;
+    margin: 4px 0 0;
+  }
 
   .contact-form {
     background: #fff;
@@ -132,22 +210,35 @@ const { defaultService } = Astro.props;
     padding: 30px;
   }
 
-  .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .field { margin-bottom: 17px; }
-  .field label { display: block; font-size: 11px; font-weight: 800; margin-bottom: 7px; }
+  .field-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .field {
+    margin-bottom: 17px;
+  }
+  .field label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
 
   .field input,
   .field select,
   .field textarea {
     width: 100%;
-    border: 1px solid #D9D9DF;
+    border: 1px solid #d9d9df;
     border-radius: 9px;
     padding: 12px 13px;
     background: #fff;
     color: #111;
     min-height: 45px;
   }
-  .field textarea { resize: vertical; }
+  .field textarea {
+    resize: vertical;
+  }
 
   .check {
     display: flex;
@@ -157,20 +248,71 @@ const { defaultService } = Astro.props;
     color: #555;
     margin: 4px 0 20px;
   }
-  .check input { margin-top: 2px; accent-color: #111; }
 
-  .form-submit { width: 100%; }
+  .check input {
+    margin-top: 2px;
+    accent-color: #111;
+  }
 
-  .form-status { font-size: 12px; margin: 12px 0 0; text-align: center; min-height: 18px; }
-  .form-status.success { color: #19723c; }
-  .form-status.error { color: #b42318; }
+  .hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .form-submit {
+    width: 100%;
+  }
+
+  .form-status {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.5;
+    text-align: center;
+    margin: 14px 0 0;
+  }
+
+  .form-status.success,
+  .form-status.error {
+    padding: 14px 16px;
+    border-radius: 12px;
+  }
+
+  .form-status.success {
+    color: #19723c;
+    background: rgba(25, 114, 60, 0.1);
+    border: 1px solid rgba(25, 114, 60, 0.25);
+  }
+
+  .form-status.error {
+    color: #b42318;
+    background: rgba(180, 35, 24, 0.08);
+    border: 1px solid rgba(180, 35, 24, 0.25);
+  }
+
+  .form-note {
+    font-size: 13px;
+    color: #555;
+    text-align: center;
+    margin: 14px 0 0;
+  }
 
   @media (max-width: 768px) {
-    .contact-grid { grid-template-columns: 1fr; gap: 45px; }
+    .contact-grid {
+      grid-template-columns: 1fr;
+      gap: 45px;
+    }
   }
 
   @media (max-width: 420px) {
-    .field-grid { grid-template-columns: 1fr; gap: 0; }
-    .contact-form { padding: 22px; }
+    .field-grid {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+    .contact-form {
+      padding: 22px;
+    }
   }
 </style>

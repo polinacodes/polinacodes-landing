@@ -26,3 +26,4 @@ pnpm-debug.log*
 # Windows
 Thumbs.db
 ehthumbs.db
+.vercel
