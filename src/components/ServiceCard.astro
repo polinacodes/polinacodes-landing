@@ -1,9 +1,10 @@
 ---
-import ShoppingCart from '@lucide/astro/icons/shopping-cart';
-import Rocket from '@lucide/astro/icons/rocket';
-import LayoutDashboard from '@lucide/astro/icons/layout-dashboard';
-import Wrench from '@lucide/astro/icons/wrench';
-import type { Service, ServiceIcon } from '../data/services';
+import ShoppingCart from "@lucide/astro/icons/shopping-cart";
+import Rocket from "@lucide/astro/icons/rocket";
+import LayoutDashboard from "@lucide/astro/icons/layout-dashboard";
+import Wrench from "@lucide/astro/icons/wrench";
+import ArrowRight from "@lucide/astro/icons/arrow-right";
+import type { Service, ServiceIcon } from "../data/services";
 
 interface Props {
   service: Service;
@@ -32,7 +33,7 @@ const Icon = icons[service.icon];
   </ul>
   <div class="card-actions">
     <a class="btn btn-card" href="/#contacto" data-service={slug}
-      >Pedir presupuesto</a
+      >Pedir presupuesto <ArrowRight size={14} aria-hidden="true" /></a
     >
     {
       hasPage && (
@@ -59,7 +60,7 @@ const Icon = icons[service.icon];
   }
   .service-card:hover {
     transform: translateY(-5px);
-    box-shadow: var(--shadow);
+    box-shadow: var(--shadow-hover);
   }
 
   .service-icon {

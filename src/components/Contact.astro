@@ -15,14 +15,29 @@ const { defaultService } = Astro.props;
       <p class="eyebrow">CONTAME TU IDEA</p>
       <h2 class="section-title">Hablemos de tu próximo proyecto web</h2>
       <p class="section-lead">
-        Contame qué necesitás, en qué punto estás y qué resultado querés conseguir. Te respondo en menos de 24 hs hábiles, sin compromiso.
+        Contame qué necesitás, en qué punto estás y qué resultado querés
+        conseguir. Te respondo en menos de 24 hs hábiles, sin compromiso.
       </p>
-      <div class="contact-note">
+      <!-- <div class="contact-note">
         <span aria-hidden="true">✦</span>
         <div>
           <strong>Respuesta directa, sin intermediarios.</strong>
           <p>Analizamos el proyecto y vemos como podemos ayudarte.</p>
         </div>
+      </div> -->
+
+      <div class="contact-next">
+        <p class="next-title">Qué pasa después de escribirme</p>
+        <ol>
+          <li>Leo tu mensaje y te respondo por email.</li>
+          <li>
+            Hacemos una llamada breve o intercambiamos mensajes para entender
+            qué necesitás.
+          </li>
+          <li>
+            Te envío una propuesta con alcance, costos y plazos.
+          </li>
+        </ol>
       </div>
     </div>
 
@@ -96,8 +111,7 @@ const { defaultService } = Astro.props;
         <input id="privacy" name="privacy" type="checkbox" required />
         <span>
           He leído y acepto la
-          <a href="/privacidad" target="_blank" rel="noopener noreferrer"
-            > política de privacidad</a
+          <a href="/privacity" target="_blank" rel="noopener noreferrer"> política de privacidad</a
           >.
         </span>
       </label>
@@ -185,6 +199,53 @@ const { defaultService } = Astro.props;
     color: #bdbdbd;
   }
 
+  .contact-next {
+    margin-top: 35px;
+    padding-top: 25px;
+    border-top: 1px solid #333;
+  }
+
+  .next-title {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #aaa;
+    margin: 0 0 18px;
+  }
+
+  .contact-next ol {
+    list-style: none;
+    counter-reset: step;
+    margin: 0;
+    padding: 0;
+  }
+
+  .contact-next li {
+    counter-increment: step;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #bdbdbd;
+    margin-bottom: 16px;
+  }
+
+  .contact-next li::before {
+    content: counter(step);
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--accent-brand);
+    color: #111;
+    font-size: 12px;
+    font-weight: 800;
+  }
+
   .contact-note {
     display: flex;
     gap: 14px;
@@ -242,14 +303,14 @@ const { defaultService } = Astro.props;
   }
 
   .check {
-  display: flex;
-  gap: 10px;
-  align-items: flex-start;
-  font-size: 12px;
-  line-height: 1.5;
-  color: #555;
-  margin: 4px 0 20px;
-}
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #555;
+    margin: 4px 0 20px;
+  }
 
   .check input {
     margin-top: 2px;

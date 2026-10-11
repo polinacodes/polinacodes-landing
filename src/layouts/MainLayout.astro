@@ -1,9 +1,10 @@
 ---
-import '@fontsource-variable/plus-jakarta-sans';
-import '../styles/global.css';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { site } from '../config/site';
+import "@fontsource-variable/plus-jakarta-sans";
+import "../styles/global.css";
+import "../styles/animations.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { site } from "../config/site";
 
 interface Props {
   title: string;
@@ -15,7 +16,13 @@ interface Props {
   schema?: object | object[];
 }
 
-const { title, description, ogTitle = title, ogDescription = description, schema } = Astro.props;
+const {
+  title,
+  description,
+  ogTitle = title,
+  ogDescription = description,
+  schema,
+} = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const schemas = schema ? [schema].flat() : [];
 ---
@@ -37,9 +44,18 @@ const schemas = schema ? [schema].flat() : [];
     <meta property="og:locale" content={site.locale} />
     <meta property="og:site_name" content={site.name} />
 
-    {schemas.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
-  </head>
+    {
+      schemas.map((s) => (
+        <script type="application/ld+json" set:html={JSON.stringify(s)} />
+      ))
+    }
+    <script>
+      import "../scripts/reveal";
+    </script></head
+  >
+
   <body>
+    <div class="scroll-progress" aria-hidden="true"></div>
     <Header />
     <main>
       <slot />

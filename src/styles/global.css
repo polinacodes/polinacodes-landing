@@ -16,6 +16,7 @@
   --shadow: 0 18px 55px rgba(17, 17, 17, .07);
   --container: min(1160px, calc(100% - 40px));
   --header-h: 78px;
+  --shadow-hover: 0 24px 60px rgba(17, 17, 17, 0.16), 0 6px 16px rgba(17, 17, 17, 0.06);
 }
 
 * { box-sizing: border-box; }
@@ -104,7 +105,9 @@ textarea:focus-visible {
   font-size: 13px;
   cursor: pointer;
   transition: transform .2s, background .2s, color .2s, border-color .2s;
+  gap: 8px;
 }
+
 .btn:hover { transform: translateY(-2px); background: #2b2b2b; }
 
 .btn-small { min-height: 42px; padding: 0 17px; }
@@ -115,6 +118,9 @@ textarea:focus-visible {
   border-color: #CFCFD5;
 }
 .btn-ghost:hover { background: var(--bg-card); }
+
+.btn svg { transition: transform .2s; }
+.btn:hover svg { transform: translateX(3px); }
 
 .btn:disabled { opacity: .6; cursor: not-allowed; transform: none; }
 

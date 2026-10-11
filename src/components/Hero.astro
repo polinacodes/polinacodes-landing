@@ -2,6 +2,7 @@
 import Gauge from "@lucide/astro/icons/gauge";
 import Smartphone from "@lucide/astro/icons/smartphone";
 import SearchCheck from "@lucide/astro/icons/search-check";
+import ArrowRight from "@lucide/astro/icons/arrow-right";
 ---
 
 <section class="hero">
@@ -19,7 +20,9 @@ import SearchCheck from "@lucide/astro/icons/search-check";
         carga rápido.
       </p>
       <div class="hero-actions">
-        <a class="btn" href="#contacto">Pedir presupuesto</a>
+        <a class="btn" href="#contacto"
+          >Pedir presupuesto <ArrowRight size={16} aria-hidden="true" /></a
+        >
         <a class="btn btn-ghost" href="#portfolio">Ver trabajos</a>
       </div>
       <div class="metrics" aria-label="Métricas destacadas">
@@ -33,7 +36,12 @@ import SearchCheck from "@lucide/astro/icons/search-check";
       <div class="hero-card-top">
         <span class="dot"></span><span>Performance first</span>
       </div>
-      <div class="speed-score">100<small>/100</small></div>
+      <div class="speed-score">
+        <span class="sr-only">100 sobre 100</span>
+        <span class="count" aria-hidden="true"></span><small aria-hidden="true"
+          >/100</small
+        >
+      </div>
       <p>
         Sitios livianos que cargan rápido y no hacen esperar a tus clientes.
       </p>
@@ -99,7 +107,14 @@ import SearchCheck from "@lucide/astro/icons/search-check";
     gap: 6px;
   }
 
-  
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
 
   .hero-card {
     background: var(--text-primary);
@@ -125,6 +140,7 @@ import SearchCheck from "@lucide/astro/icons/search-check";
     right: -90px;
     bottom: -80px;
   }
+
   .hero-card p {
     color: #ccc;
     max-width: 250px;
@@ -137,6 +153,7 @@ import SearchCheck from "@lucide/astro/icons/search-check";
     align-items: center;
     gap: 8px;
   }
+
   .dot {
     width: 8px;
     height: 8px;

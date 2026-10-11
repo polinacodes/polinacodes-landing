@@ -1,4 +1,6 @@
 ---
+import ArrowRight from '@lucide/astro/icons/arrow-right';
+
 const steps = [
   { title: 'Contacto y Diagnóstico', text: 'Me contás tu idea y tus objetivos, y vemos qué necesita tu proyecto.' },
   { title: 'Propuesta y Presupuesto', text: 'Te envío el alcance con costos y tiempos claros, antes de empezar.' },
@@ -14,12 +16,13 @@ const steps = [
       <p class="eyebrow">UN PROCESO SIMPLE</p>
       <h2 class="section-title">Cómo es el proceso de desarrollo de tu página web</h2>
     </div>
+
     <ol class="timeline">
       {
         steps.map((step, i) => (
           <li>
             <span class="step">{String(i + 1).padStart(2, '0')}</span>
-            <div>
+            <div class="step-text">
               <h3>{step.title}</h3>
               <p>{step.text}</p>
             </div>
@@ -27,8 +30,55 @@ const steps = [
         ))
       }
     </ol>
+
+    <div class="process-cta">
+      <p>Contame tu idea y hagamos algo increíble juntos.</p>
+      <a class="btn" href="/#contacto">
+        Pedir presupuesto <ArrowRight size={16} aria-hidden="true" />
+      </a>
+    </div>
   </div>
 </section>
+
+<script>
+  const timeline = document.querySelector<HTMLElement>('.timeline');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (timeline && !reduceMotion) {
+    const steps = Array.from(timeline.querySelectorAll<HTMLElement>('li'));
+    const segments = steps.length - 1;
+    let ticking = false;
+
+    const update = () => {
+      ticking = false;
+      const vh = window.innerHeight;
+      const rect = timeline.getBoundingClientRect();
+
+      // Empieza a llenarse cuando la línea entra por abajo (85% de la pantalla)
+      // y termina cuando su parte inferior llega al 60%.
+      const start = vh * 0.85;
+      const end = vh * 0.6;
+      const progress = Math.min(1, Math.max(0, (start - rect.top) / (start - end + rect.height)));
+      const scaled = progress * segments;
+
+      steps.forEach((step, i) => {
+        step.style.setProperty('--fill', String(Math.min(1, Math.max(0, scaled - i))));
+        step.classList.toggle('is-active', i === 0 ? progress > 0 : scaled >= i);
+      });
+    };
+
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+  }
+</script>
 
 <style>
   .timeline {
@@ -37,19 +87,31 @@ const steps = [
     margin: 0;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    position: relative;
-  }
-  .timeline::before {
-    content: "";
-    position: absolute;
-    top: 53px;
-    left: 8%;
-    right: 8%;
-    height: 1px;
-    background: #D7D7DC;
   }
 
-  li { position: relative; text-align: center; padding: 0 12px; }
+  li {
+    position: relative;
+    text-align: center;
+    padding: 0 12px;
+  }
+
+  /* Tramo de línea desde este círculo hasta el siguiente */
+  li:not(:last-child)::before,
+  li:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 28px;
+    left: 50%;
+    width: 100%;
+    height: 2px;
+    background: #d7d7dc;
+  }
+  li:not(:last-child)::after {
+    background: var(--accent-brand);
+    transform: scaleX(var(--fill, 0));
+    transform-origin: left;
+    transition: transform 0.12s linear;
+  }
 
   .step {
     display: grid;
@@ -63,12 +125,47 @@ const steps = [
     border: 7px solid var(--bg-primary);
     position: relative;
     z-index: 1;
-    font-size: 11px;
+    font-size: 13px;
     font-weight: 800;
+    transition: background-color 0.35s, color 0.35s, transform 0.35s;
   }
 
-  h3 { font-size: 14px; margin: 0 0 7px; }
-  p { font-size: 11px; color: #666; margin: 0; }
+  li.is-active .step {
+    background: var(--accent-brand);
+    color: #111;
+    transform: scale(1.08);
+  }
+
+  h3 {
+    font-size: 17px;
+    line-height: 1.3;
+    margin: 0 0 8px;
+  }
+  .step-text p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #555;
+    margin: 0;
+  }
+
+  /* CTA */
+  .process-cta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    margin-top: 64px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+  }
+  .process-cta p {
+    margin: 0;
+    font-size: 16px;
+    color: var(--text-secondary);
+  }
+  /* .process-cta .btn {
+    gap: 8px;
+  } */
 
   @media (max-width: 1024px) {
     li { padding: 0 5px; }
@@ -76,14 +173,7 @@ const steps = [
 
   @media (max-width: 768px) {
     .timeline { display: block; padding-top: 5px; }
-    .timeline::before {
-      left: 29px;
-      right: auto;
-      top: 20px;
-      bottom: 20px;
-      width: 1px;
-      height: auto;
-    }
+
     li {
       display: grid;
       grid-template-columns: 58px 1fr;
@@ -91,7 +181,22 @@ const steps = [
       gap: 18px;
       padding: 0 0 28px;
     }
+
+    li:not(:last-child)::before,
+    li:not(:last-child)::after {
+      top: 29px;
+      left: 28px;
+      width: 2px;
+      height: 100%;
+    }
+    li:not(:last-child)::after {
+      transform: scaleY(var(--fill, 0));
+      transform-origin: top;
+    }
+
     .step { margin: 0; }
-    li > div { padding-top: 8px; }
+    .step-text { padding-top: 8px; }
+
+    .process-cta { flex-direction: column; align-items: stretch; text-align: center; }
   }
 </style>
