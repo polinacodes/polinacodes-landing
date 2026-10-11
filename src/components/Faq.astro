@@ -14,7 +14,7 @@ const {
   items,
   eyebrow = 'RESOLVAMOS TUS DUDAS',
   title = 'Preguntas frecuentes',
-  intro = 'Si no encontrás lo que buscas, podemos verlo juntos en una primera consulta.',
+  intro = 'Si no encontrás lo que buscás, escribime y lo vemos juntos.',
   idPrefix = 'faq',
 } = Astro.props;
 ---
@@ -29,7 +29,7 @@ const {
 
     <div class="accordion">
       {
-        items.map((item, i) => (
+        items.map((item: FaqItem, i: number) => (
           <div class="faq">
             <button type="button" aria-expanded="false" aria-controls={`${idPrefix}-${i}`} id={`${idPrefix}-btn-${i}`}>
               {item.question}

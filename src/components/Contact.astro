@@ -12,11 +12,10 @@ const { defaultService } = Astro.props;
 <section class="contact section" id="contacto">
   <div class="container contact-grid">
     <div class="contact-copy">
-      <p class="eyebrow">CONTANOS TU IDEA</p>
-      <h2 class="section-title">Hablemos de tu próximo proyecto</h2>
+      <p class="eyebrow">CONTAME TU IDEA</p>
+      <h2 class="section-title">Hablemos de tu próximo proyecto web</h2>
       <p class="section-lead">
-        Contanos qué necesitas, en qué punto estás y qué resultado querés
-        conseguir. Te responderemos con próximos pasos claros.
+        Contame qué necesitás, en qué punto estás y qué resultado querés conseguir. Te respondo en menos de 24 hs hábiles, sin compromiso.
       </p>
       <div class="contact-note">
         <span aria-hidden="true">✦</span>
@@ -80,7 +79,7 @@ const { defaultService } = Astro.props;
       </div>
 
       <div class="field">
-        <label for="message">Cuéntame brevemente sobre el proyecto</label>
+        <label for="message">Contanos brevemente sobre el proyecto</label>
         <textarea id="message" name="message" rows="4" required></textarea>
       </div>
 
@@ -95,16 +94,18 @@ const { defaultService } = Astro.props;
 
       <label class="check">
         <input id="privacy" name="privacy" type="checkbox" required />
-        <span
-          >Acepto la política de privacidad y el uso de mis datos para responder
-          a mi consulta.</span
-        >
+        <span>
+          He leído y acepto la
+          <a href="/privacidad" target="_blank" rel="noopener noreferrer"
+            > política de privacidad</a
+          >.
+        </span>
       </label>
 
       <button class="btn form-submit" type="submit">Enviar consulta</button>
-      <p class="form-note" id="form-note">
+      <!-- <p class="form-note" id="form-note">
         Te respondo en menos de 24 hs hábiles. Sin compromiso.
-      </p>
+      </p> -->
       <p class="form-status" id="form-status" role="status" aria-live="polite">
       </p>
     </form>
@@ -115,7 +116,7 @@ const { defaultService } = Astro.props;
   const form = document.querySelector<HTMLFormElement>("#contact-form");
   const status = document.querySelector<HTMLElement>("#form-status");
   const serviceSelect = document.querySelector<HTMLSelectElement>("#service");
-  const note = document.querySelector<HTMLElement>("#form-note");
+  // const note = document.querySelector<HTMLElement>("#form-note");
 
   // Preselecciona el servicio al hacer click en "Pedir presupuesto" de una tarjeta
   document.querySelectorAll<HTMLElement>("[data-service]").forEach((el) => {
@@ -139,7 +140,7 @@ const { defaultService } = Astro.props;
       if (submit) submit.disabled = true;
       status.className = "form-status";
       status.textContent = "Enviando...";
-      if (note) note.hidden = false;
+      // if (note) note.hidden = false;
 
       try {
         const res = await fetch("/api/contact", {
@@ -151,13 +152,13 @@ const { defaultService } = Astro.props;
 
         status.className = "form-status success";
         status.textContent =
-          "¡Gracias! Recibí tu consulta, te respondo a la brevedad.";
-        if (note) note.hidden = true;
+          "¡Gracias! Recibimos tu consulta, te respondemos a la brevedad.";
+        // if (note) note.hidden = true;
         form.reset();
       } catch {
         status.className = "form-status error";
         status.textContent =
-          "No pude enviar el mensaje. Probá de nuevo o escribime a hola@polinacodes.dev.";
+          "No pude enviar el mensaje. Probá de nuevo o escribinos a hola@polinacodes.dev.";
       } finally {
         if (submit) submit.disabled = false;
       }
@@ -241,17 +242,27 @@ const { defaultService } = Astro.props;
   }
 
   .check {
-    display: flex;
-    gap: 9px;
-    align-items: flex-start;
-    font-size: 10px;
-    color: #555;
-    margin: 4px 0 20px;
-  }
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #555;
+  margin: 4px 0 20px;
+}
 
   .check input {
     margin-top: 2px;
     accent-color: #111;
+  }
+
+  .check a {
+    text-decoration: underline;
+    font-weight: 600;
+    color: #111;
+  }
+  .check a:hover {
+    color: #9d4192;
   }
 
   .hp {
@@ -292,12 +303,12 @@ const { defaultService } = Astro.props;
     border: 1px solid rgba(180, 35, 24, 0.25);
   }
 
-  .form-note {
+  /* .form-note {
     font-size: 13px;
     color: #555;
     text-align: center;
     margin: 14px 0 0;
-  }
+  } */
 
   @media (max-width: 768px) {
     .contact-grid {

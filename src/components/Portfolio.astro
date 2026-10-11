@@ -12,9 +12,9 @@ interface Props {
 
 const {
   projects,
-  eyebrow = 'TRABAJOS DESTACADOS',
-  title = 'Proyectos recientes y métricas reales',
-  intro = 'Una muestra del tipo de experiencia que podemos construir.',
+  eyebrow = 'PORTFOLIO',
+  title = 'Proyectos de desarrollo web y tiendas online',
+  intro = 'Una muestra de lo que puedo construir para tu negocio.',
   id = 'portfolio',
 } = Astro.props;
 ---
@@ -31,7 +31,7 @@ const {
           <p class="section-lead">{intro}</p>
         </div>
         <div class="project-grid">
-          {projects.map((project) => <ProjectCard project={project} />)}
+          {projects.map((project: Project) => <ProjectCard project={project} />)}
         </div>
       </div>
     </section>

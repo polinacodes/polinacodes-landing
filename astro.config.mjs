@@ -3,9 +3,14 @@ import { defineConfig } from 'astro/config';
 import vercel from '@astrojs/vercel';
 
 
+import sitemap from '@astrojs/sitemap';
+
+
 // https://astro.build/config
 export default defineConfig({
   // Necesario para canonical, og:url y sitemap. Cambialo si tu dominio final es otro.
   site: 'https://polinacodes.dev',
+
   adapter: vercel(),
+  integrations: [sitemap()],
 });
