@@ -17,6 +17,15 @@ const groups: Array<[selector: string, variant: Variant]> = [
   ['.faq', 'up'],
   ['.contact-copy > *', 'left'],
   ['.contact-form', 'right'],
+  ['.answer-text', 'up'],
+  ['.fit', 'up'],
+  ['.feature-card', 'scale'],
+  ['.feature-note', 'up'],
+  ['.cmp-wrap', 'up'],
+  ['.cmp-footnote', 'up'],
+  ['.cta-strip', 'up'],
+  ['.start-list li', 'up'],
+  ['.start-media', 'right'],
 ];
 
 const STEP = 90; // ms entre elementos que aparecen a la vez

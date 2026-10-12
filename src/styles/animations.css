@@ -8,93 +8,228 @@
    Con "reducir movimiento" activado en el sistema no se anima nada.
    ========================================================= */
 
-:root { --ease-out: cubic-bezier(.22, .8, .3, 1); }
+:root {
+    --ease-out: cubic-bezier(.22, .8, .3, 1);
+}
 
 /* ---------- Contador animado del "100" (hero) ---------- */
 @property --num {
-  syntax: "<integer>";
-  initial-value: 100;
-  inherits: false;
+    syntax: "<integer>";
+    initial-value: 100;
+    inherits: false;
 }
 
-.count { counter-reset: num var(--num, 100); }
-.count::before { content: counter(num); }
+.count {
+    counter-reset: num var(--num, 100);
+}
+
+.count::before {
+    content: counter(num);
+}
 
 /* ---------- Keyframes (solo "from": el final es el estilo natural) ---------- */
-@keyframes rise { from { opacity: 0; transform: translateY(22px); } }
-@keyframes slide-in { from { opacity: 0; transform: translateX(36px); } }
-@keyframes grow-y { from { transform: scaleY(0); } }
-@keyframes count-up { from { --num: 0; } to { --num: 100; } }
+@keyframes rise {
+    from {
+        opacity: 0;
+        transform: translateY(22px);
+    }
+}
 
-@keyframes reveal-up { from { opacity: 0; transform: translateY(28px); } }
-@keyframes reveal-scale { from { opacity: 0; transform: translateY(32px) scale(.96); } }
-@keyframes reveal-left { from { opacity: 0; transform: translateX(-40px); } }
-@keyframes reveal-right { from { opacity: 0; transform: translateX(40px); } }
+@keyframes slide-in {
+    from {
+        opacity: 0;
+        transform: translateX(36px);
+    }
+}
 
-@keyframes progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes grow-y {
+    from {
+        transform: scaleY(0);
+    }
+}
+
+@keyframes count-up {
+    from {
+        --num: 0;
+    }
+
+    to {
+        --num: 100;
+    }
+}
+
+@keyframes reveal-up {
+    from {
+        opacity: 0;
+        transform: translateY(28px);
+    }
+}
+
+@keyframes reveal-scale {
+    from {
+        opacity: 0;
+        transform: translateY(32px) scale(.96);
+    }
+}
+
+@keyframes reveal-left {
+    from {
+        opacity: 0;
+        transform: translateX(-40px);
+    }
+}
+
+@keyframes reveal-right {
+    from {
+        opacity: 0;
+        transform: translateX(40px);
+    }
+}
+
+@keyframes progress {
+    from {
+        transform: scaleX(0);
+    }
+
+    to {
+        transform: scaleX(1);
+    }
+}
 
 /* ---------- Aparición al scroll ---------- */
 /* Oculto hasta que reveal.ts lo marca como visible */
-.reveal { opacity: 0; }
+.reveal {
+    opacity: 0;
+}
 
 .reveal.is-visible {
-  opacity: 1;
-  animation-duration: .8s;
-  animation-timing-function: var(--ease-out);
-  animation-delay: var(--d, 0ms);
-  animation-fill-mode: backwards; /* al terminar, vuelven tus estilos (hover incluido) */
+    opacity: 1;
+    animation-duration: .8s;
+    animation-timing-function: var(--ease-out);
+    animation-delay: var(--d, 0ms);
+    animation-fill-mode: backwards;
+    /* al terminar, vuelven tus estilos (hover incluido) */
 }
-.reveal-up.is-visible    { animation-name: reveal-up; }
-.reveal-scale.is-visible { animation-name: reveal-scale; }
-.reveal-left.is-visible  { animation-name: reveal-left; }
-.reveal-right.is-visible { animation-name: reveal-right; }
+
+.reveal-up.is-visible {
+    animation-name: reveal-up;
+}
+
+.reveal-scale.is-visible {
+    animation-name: reveal-scale;
+}
+
+.reveal-left.is-visible {
+    animation-name: reveal-left;
+}
+
+.reveal-right.is-visible {
+    animation-name: reveal-right;
+}
 
 /* En celular no hay columnas: las entradas laterales pasan a subir */
 @media (max-width: 768px) {
-  .reveal-left.is-visible,
-  .reveal-right.is-visible { animation-name: reveal-up; }
+
+    .reveal-left.is-visible,
+    .reveal-right.is-visible {
+        animation-name: reveal-up;
+    }
 }
 
 /* La barra de progreso no existe si no hay soporte */
-.scroll-progress { display: none; }
+.scroll-progress {
+    display: none;
+}
 
 @media (prefers-reduced-motion: no-preference) {
 
-  /* ================= HERO (al cargar) ================= */
-  .hero .eyebrow  { animation: rise .6s var(--ease-out) backwards; }
-  .hero h1        { animation: rise .6s var(--ease-out) 40ms backwards; }
-  .hero-lead      { animation: rise .6s var(--ease-out) 180ms backwards; }
-  .hero-actions   { animation: rise .6s var(--ease-out) 280ms backwards; }
-  .hero .metrics  { animation: rise .6s var(--ease-out) 380ms backwards; }
-
-  .hero-card      { animation: slide-in .8s var(--ease-out) 250ms backwards; }
-
-  .mini-bars i {
-    transform-origin: bottom;
-    animation: grow-y .7s var(--ease-out) backwards;
-  }
-  .mini-bars i:nth-child(1) { animation-delay: .9s; }
-  .mini-bars i:nth-child(2) { animation-delay: 1s; }
-  .mini-bars i:nth-child(3) { animation-delay: 1.1s; }
-  .mini-bars i:nth-child(4) { animation-delay: 1.2s; }
-
-  .count { animation: count-up 1.4s cubic-bezier(.2, .7, .2, 1) .5s backwards; }
-
-  /* ================= BARRA DE PROGRESO ================= */
-  @supports (animation-timeline: scroll()) {
-    .scroll-progress {
-      display: block;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 3px;
-      background: var(--accent-brand);
-      transform-origin: left;
-      z-index: 60;
-      pointer-events: none;
-      animation: progress linear both;
-      animation-timeline: scroll(root);
+    /* ================= HERO (al cargar) ================= */
+    .hero .eyebrow {
+        animation: rise .6s var(--ease-out) backwards;
     }
-  }
+
+    .hero h1 {
+        animation: rise .6s var(--ease-out) 40ms backwards;
+    }
+
+    .hero-lead {
+        animation: rise .6s var(--ease-out) 180ms backwards;
+    }
+
+    .hero-actions {
+        animation: rise .6s var(--ease-out) 280ms backwards;
+    }
+
+    .hero .metrics {
+        animation: rise .6s var(--ease-out) 380ms backwards;
+    }
+
+    .hero-card {
+        animation: slide-in .8s var(--ease-out) 250ms backwards;
+    }
+
+    .mini-bars i {
+        transform-origin: bottom;
+        animation: grow-y .7s var(--ease-out) backwards;
+    }
+
+    .mini-bars i:nth-child(1) {
+        animation-delay: .9s;
+    }
+
+    .mini-bars i:nth-child(2) {
+        animation-delay: 1s;
+    }
+
+    .mini-bars i:nth-child(3) {
+        animation-delay: 1.1s;
+    }
+
+    .mini-bars i:nth-child(4) {
+        animation-delay: 1.2s;
+    }
+
+    .count {
+        animation: count-up 1.4s cubic-bezier(.2, .7, .2, 1) .5s backwards;
+    }
+
+    .svc-hero .breadcrumb {
+        animation: rise .6s var(--ease-out) backwards;
+    }
+
+    .svc-hero h1 {
+        animation: rise .6s var(--ease-out) 40ms backwards;
+    }
+
+    .svc-media { animation: slide-in .8s var(--ease-out) 250ms backwards; }
+
+    .svc-lead {
+        animation: rise .6s var(--ease-out) 160ms backwards;
+    }
+
+    .svc-actions {
+        animation: rise .6s var(--ease-out) 260ms backwards;
+    }
+
+    .svc-badges {
+        animation: rise .6s var(--ease-out) 360ms backwards;
+    }
+
+    /* ================= BARRA DE PROGRESO ================= */
+    @supports (animation-timeline: scroll()) {
+        .scroll-progress {
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--accent-brand);
+            transform-origin: left;
+            z-index: 60;
+            pointer-events: none;
+            animation: progress linear both;
+            animation-timeline: scroll(root);
+        }
+    }
 }

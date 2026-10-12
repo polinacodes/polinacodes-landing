@@ -4,8 +4,6 @@ import { getService } from '../../data/services';
 
 export const prerender = false;
 
-// const resend = new Resend(import.meta.env.RESEND_API_KEY);
-
 const escapeHtml = (s: string) =>
   s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
 

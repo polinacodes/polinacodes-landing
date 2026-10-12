@@ -18,13 +18,6 @@ const { defaultService } = Astro.props;
         Contame qué necesitás, en qué punto estás y qué resultado querés
         conseguir. Te respondo en menos de 24 hs hábiles, sin compromiso.
       </p>
-      <!-- <div class="contact-note">
-        <span aria-hidden="true">✦</span>
-        <div>
-          <strong>Respuesta directa, sin intermediarios.</strong>
-          <p>Analizamos el proyecto y vemos como podemos ayudarte.</p>
-        </div>
-      </div> -->
 
       <div class="contact-next">
         <p class="next-title">Qué pasa después de escribirme</p>
@@ -117,9 +110,7 @@ const { defaultService } = Astro.props;
       </label>
 
       <button class="btn form-submit" type="submit">Enviar consulta</button>
-      <!-- <p class="form-note" id="form-note">
-        Te respondo en menos de 24 hs hábiles. Sin compromiso.
-      </p> -->
+  
       <p class="form-status" id="form-status" role="status" aria-live="polite">
       </p>
     </form>
@@ -130,9 +121,7 @@ const { defaultService } = Astro.props;
   const form = document.querySelector<HTMLFormElement>("#contact-form");
   const status = document.querySelector<HTMLElement>("#form-status");
   const serviceSelect = document.querySelector<HTMLSelectElement>("#service");
-  // const note = document.querySelector<HTMLElement>("#form-note");
 
-  // Preselecciona el servicio al hacer click en "Pedir presupuesto" de una tarjeta
   document.querySelectorAll<HTMLElement>("[data-service]").forEach((el) => {
     el.addEventListener("click", () => {
       if (serviceSelect) serviceSelect.value = el.dataset.service ?? "";
@@ -154,7 +143,6 @@ const { defaultService } = Astro.props;
       if (submit) submit.disabled = true;
       status.className = "form-status";
       status.textContent = "Enviando...";
-      // if (note) note.hidden = false;
 
       try {
         const res = await fetch("/api/contact", {
@@ -167,7 +155,6 @@ const { defaultService } = Astro.props;
         status.className = "form-status success";
         status.textContent =
           "¡Gracias! Recibimos tu consulta, te respondemos a la brevedad.";
-        // if (note) note.hidden = true;
         form.reset();
       } catch {
         status.className = "form-status error";
@@ -363,13 +350,6 @@ const { defaultService } = Astro.props;
     background: rgba(180, 35, 24, 0.08);
     border: 1px solid rgba(180, 35, 24, 0.25);
   }
-
-  /* .form-note {
-    font-size: 13px;
-    color: #555;
-    text-align: center;
-    margin: 14px 0 0;
-  } */
 
   @media (max-width: 768px) {
     .contact-grid {

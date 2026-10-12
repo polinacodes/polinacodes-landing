@@ -62,7 +62,7 @@ export const projects: Project[] = [
     title: 'Tienda de decoración',
     description: 'Migración de plataforma sin perder posicionamiento.',
     technologies: ['WooCommerce', 'PHP'],
-    services: ['tiendas-online', 'mantenimiento'],
+    services: ['tiendas-online', 'mantenimiento-web'],
     featured: false,
     mockup: 'shop',
   },

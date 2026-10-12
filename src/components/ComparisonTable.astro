@@ -1,0 +1,128 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  intro?: string;
+  columns: string[];
+  rows: { label: string; cells: string[] }[];
+  footnote?: string;
+}
+
+const { eyebrow, title, intro, columns, rows, footnote } = Astro.props;
+---
+
+<section class="cmp-section section">
+  <div class="container">
+    <div class="section-intro">
+      <p class="eyebrow">{eyebrow}</p>
+      <h2 class="section-title">{title}</h2>
+      {intro && <p class="section-lead">{intro}</p>}
+    </div>
+
+    <p class="cmp-hint" aria-hidden="true">
+      Deslizá la tabla para ver todas las columnas →
+    </p>
+
+    <div class="cmp-wrap" role="region" aria-label={title} tabindex="0">
+      <table class="cmp-table">
+        <caption class="sr-only">{title}</caption>
+        <thead>
+          <tr>
+            <td></td>
+            {columns.map((col) => <th scope="col">{col}</th>)}
+          </tr>
+        </thead>
+        <tbody>
+          {
+            rows.map((row) => (
+              <tr>
+                <th scope="row">{row.label}</th>
+                {row.cells.map((cell) => (
+                  <td>{cell}</td>
+                ))}
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+
+    {footnote && <p class="cmp-footnote">{footnote}</p>}
+  </div>
+</section>
+
+<style>
+  .cmp-section .section-intro {
+    margin-bottom: 40px;
+  }
+
+  .cmp-hint {
+    display: none;
+    font-size: 12px;
+    color: #777;
+    margin: 0 0 10px;
+  }
+
+  .cmp-wrap {
+    overflow-x: auto;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+
+  .cmp-table {
+    width: 100%;
+    min-width: 720px;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  .cmp-table th,
+  .cmp-table td {
+    padding: 18px 20px;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .cmp-table thead th,
+  .cmp-table thead td {
+    background: rgba(227, 120, 211, 0.14);
+    border-bottom-color: rgba(227, 120, 211, 0.35);
+  }
+
+  .cmp-table tbody th {
+    width: 170px;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+  .cmp-table tbody td {
+    color: var(--text-secondary);
+    line-height: 1.55;
+  }
+  .cmp-table tbody tr:last-child > * {
+    border-bottom: 0;
+  }
+
+  .cmp-footnote {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #666;
+    max-width: 760px;
+    margin: 24px 0 0;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 768px) {
+    .cmp-hint {
+      display: block;
+    }
+  }
+</style>

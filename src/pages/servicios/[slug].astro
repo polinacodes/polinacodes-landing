@@ -1,0 +1,112 @@
+---
+import type { InferGetStaticPropsType } from "astro";
+import MainLayout from "../../layouts/MainLayout.astro";
+import ServiceHero from "../../components/ServiceHero.astro";
+import ServiceAnswer from "../../components/ServiceAnswer.astro";
+import FeatureGrid from "../../components/FeatureGrid.astro";
+import CtaStrip from "../../components/CtaStrip.astro";
+import ComparisonTable from "../../components/ComparisonTable.astro";
+import Portfolio from "../../components/Portfolio.astro";
+import Faq from "../../components/Faq.astro";
+import Contact from "../../components/Contact.astro";
+import StartChecklist from "../../components/StartChecklist.astro";
+import { services } from "../../data/services";
+import { servicePages } from "../../data/servicePages";
+import { getProjectsByService } from "../../data/projects";
+import {
+  buildServiceSchema,
+  buildBreadcrumbSchema,
+} from "../../lib/serviceSchema";
+
+export function getStaticPaths() {
+  return services
+    .filter((service) => service.hasPage && servicePages[service.slug])
+    .map((service) => ({
+      params: { slug: service.slug },
+      props: { service, page: servicePages[service.slug]! },
+    }));
+}
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+const { service, page } = Astro.props as Props;
+
+// Seguro anti-descuidos: no deja publicar si quedan datos sin confirmar
+if (import.meta.env.PROD && JSON.stringify(page).includes("[CONFIRMAR")) {
+  throw new Error(
+    `Quedan datos [CONFIRMAR] sin completar en src/data/servicePages.ts (servicio: ${service.slug}).`,
+  );
+}
+
+const relatedProjects = getProjectsByService(service.slug);
+---
+
+<MainLayout
+  title={page.seoTitle}
+  description={page.seoDescription}
+  schema={[buildServiceSchema(service, page), buildBreadcrumbSchema(service)]}
+>
+  <ServiceHero
+    name={service.name}
+    h1={page.h1}
+    subtitle={page.subtitle}
+    image={page.heroImage?.src}
+    imageAlt={page.heroImage?.alt}
+    badges={page.badges}
+    ctaLabel={page.ctaLabel}
+  />
+
+  <ServiceAnswer
+    heading={page.answer.heading}
+    text={page.answer.text}
+    forYou={page.answer.forYou}
+    notForYou={page.answer.notForYou}
+  />
+
+  <FeatureGrid
+    eyebrow="QUÉ INCLUYE"
+    title="Qué incluye este servicio"
+    items={page.includes}
+    note={page.includesNote}
+  />
+
+  <CtaStrip text={page.midCta} />
+
+  {
+    page.deepDive?.table && (
+      <ComparisonTable
+        eyebrow={page.deepDive.eyebrow}
+        title={page.deepDive.title}
+        intro={page.deepDive.intro}
+        columns={page.deepDive.table.columns}
+        rows={page.deepDive.table.rows}
+        footnote={page.deepDive.footnote}
+      />
+    )
+  }
+
+  <Portfolio
+    projects={relatedProjects}
+    eyebrow="PROYECTOS"
+    title="Trabajos de este servicio"
+    intro="Algunos proyectos similares al que podemos construir juntos."
+  />
+
+  <StartChecklist
+    eyebrow="PARA ARRANCAR"
+    title="Lo que necesito para empezar"
+    intro="No hace falta tener todo listo. Con esto alcanza para arrancar, y lo demás lo resolvemos juntos."
+    items={page.needs}
+    image={page.startImage?.src}
+    imageAlt={page.startImage?.alt}
+  />
+
+  <Faq
+    items={page.faqs}
+    eyebrow="DUDAS FRECUENTES"
+    title="Preguntas frecuentes sobre este servicio"
+    intro="Si tu duda no está acá, escribime y la vemos."
+    idPrefix="svc-faq"
+  />
+
+  <Contact defaultService={service.slug} />
+</MainLayout>

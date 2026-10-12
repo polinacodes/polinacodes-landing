@@ -2,7 +2,7 @@ export type ServiceSlug =
   | 'tiendas-online'
   | 'landing-pages'
   | 'sistemas-a-medida'
-  | 'mantenimiento';
+  | 'mantenimiento-web';
 
 export type ServiceIcon = 'cart' | 'rocket' | 'dashboard' | 'wrench';
 
@@ -32,7 +32,7 @@ export const services: Service[] = [
       'Medios de pago según tu país: Mercado Pago, PayPal, Stripe y más',
       'Velocidad de carga y SEO para tu catálogo',
     ],
-    hasPage: false,
+    hasPage: true,
   },
   {
     slug: 'landing-pages',
@@ -61,7 +61,7 @@ export const services: Service[] = [
     hasPage: false,
   },
   {
-    slug: 'mantenimiento',
+    slug: 'mantenimiento-web',
     name: 'Mantenimiento Web, Rediseño & Migraciones',
     formLabel: 'Mantenimiento / Rediseño',
     icon: 'wrench',
