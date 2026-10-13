@@ -7,15 +7,18 @@ import landingsHero from '../assets/services/landings-hero.avif';
 import landingsStart from '../assets/services/landings-start.avif';
 import sistemasHero from '../assets/services/sistemas-hero.avif';
 import sistemasStart from '../assets/services/sistemas-start.avif';
+import mantenimientoHero from '../assets/services/mantenimiento-hero.avif';
+import mantenimientoStart from '../assets/services/mantenimiento-start.avif';
 
 export type FeatureIcon =
   | 'palette' | 'package' | 'credit-card' | 'truck' | 'gauge' | 'graduation-cap'
   | 'mail' | 'search' | 'smartphone' | 'pencil'
-  | 'calendar-check' | 'bell' | 'workflow' | 'message-circle' | 'layout-dashboard' | 'list-checks';
+  | 'calendar-check' | 'bell' | 'workflow' | 'message-circle' | 'layout-dashboard' | 'list-checks' | 'clipboard-check' | 'wrench';
 
 export type SpotlightIcon =
   | 'target' | 'zap' | 'shield-check' | 'pointer'
-  | 'message' | 'bell' | 'workflow' | 'calendar';
+  | 'message' | 'bell' | 'workflow' | 'calendar'
+  | 'gauge' | 'search' | 'palette';
 // Contenido de cada página de servicio (/servicios/[slug]).
 // Para sumar una página: completá su entrada acá y poné `hasPage: true` en services.ts.
 
@@ -690,6 +693,223 @@ export const servicePages: Partial<Record<ServiceSlug, ServicePage>> = {
       },
     ],
   },
-  
+
+  'mantenimiento-web': {
+    seoTitle: 'Mantenimiento web y rediseño de páginas | Polinacodes',
+    seoDescription:
+      'Mantenimiento web, rediseño UI/UX, optimización SEO y GEO y migraciones para mejorar tu página actual sin empezar de cero. Pedí un diagnóstico.',
+    h1: 'Mantenimiento web, rediseño y optimización de tu página actual',
+    subtitle:
+      'Mejoro lo que ya tenés sin empezar de cero: más rápida, más clara, mejor posicionada y siempre al día. Vos elegís qué mejorar.',
+    badges: [
+      'Mejoras a tu medida',
+      'Diagnóstico inicial gratuito',
+      'Sin empezar de cero',
+    ],
+    ctaLabel: 'Quiero un diagnóstico de mi web',
+    shortCta: 'Quiero un diagnóstico de mi web',
+    heroImage: {
+      src: mantenimientoHero,
+      alt: 'Mockup de una página web renovada mostrada en una laptop',
+    },
+
+    includesHeading: {
+      eyebrow: 'QUÉ PUEDO MEJORAR',
+      title: 'Qué puedo mejorar en tu web',
+    },
+
+    answer: {
+      heading: 'Mejorar tu web sin empezar de cero',
+      text: 'Mejoro y mantengo páginas web existentes para negocios y profesionales de Argentina, Latinoamérica y España: rediseño UI/UX, adaptación a celular, optimización de velocidad, SEO y GEO, migraciones de plataforma y mantenimiento continuo. Soy desarrolladora web freelance: reviso tu sitio, te cuento qué conviene mejorar y hago solo lo que vos elijas.',
+      forYou: [
+        'Tu web se ve vieja o confusa y querés renovar su diseño sin rehacer todo.',
+        'Tu sitio es lento o no se ve bien en el celular.',
+        'No aparecés en Google o querés prepararte para las respuestas de la IA.',
+        'Querés mudar tu web a otra plataforma sin perder tu posicionamiento.',
+        'Tu web necesita cuidado constante y no tenés quién se ocupe.',
+      ],
+      notForYou: [
+        'Querés una web totalmente nueva desde cero: en ese caso conviene un proyecto nuevo y no un mantenimiento.',
+        'Buscás soporte las 24 horas, todos los días.',
+        'Esperás que mejorar el SEO te posicione de un día para otro: los resultados llevan tiempo.',
+      ],
+    },
+
+    includes: [
+      {
+        title: 'Diagnóstico de tu web',
+        text: 'Reviso tu sitio, te cuento qué se puede mejorar y qué conviene hacer primero. Vos elegís qué encargar.',
+        icon: 'clipboard-check',
+      },
+      {
+        title: 'Rediseño UI/UX',
+        text: 'Renuevo el diseño y la experiencia de uso para que tu web sea más clara, moderna y fácil de recorrer.',
+        icon: 'palette',
+      },
+      {
+        title: 'Adaptación a celular',
+        text: 'Hago que tu web se vea y funcione bien en celulares, tablets y computadoras.',
+        icon: 'smartphone',
+      },
+      {
+        title: 'Velocidad y rendimiento',
+        text: 'Optimizo imágenes, código y recursos para que tu web cargue más rápido.',
+        icon: 'gauge',
+      },
+      {
+        title: 'SEO y GEO',
+        text: 'Mejoro la parte técnica y los textos para que Google te entienda mejor, y preparo tu sitio para aparecer también en las respuestas de la IA.',
+        icon: 'search',
+      },
+      {
+        title: 'Migraciones y mantenimiento',
+        text: 'Muevo tu web a otra plataforma cuidando tu posicionamiento, y me ocupo de actualizaciones, seguridad y mejoras continuas.',
+        icon: 'wrench',
+      },
+    ],
+    includesNote:
+      'No hace falta hacer todo junto: las mejoras son las que vos encargues. Los costos de hosting, dominio y plugins los define cada proveedor.',
+    midCta: '¿Tu web necesita una puesta a punto?',
+
+    deepDive: {
+      eyebrow: 'ELEGIR OPCIÓN',
+      title: '¿Mejoras puntuales, mantenimiento o rediseño?',
+      intro:
+        'Cada web necesita algo distinto. Esta es una guía rápida; después del diagnóstico te recomiendo la opción que mejor encaje con tu caso.',
+      table: {
+        columns: ['Mejoras puntuales', 'Mantenimiento continuo', 'Rediseño completo'],
+        rows: [
+          {
+            label: 'Ideal para',
+            cells: [
+              'Resolver algo concreto: una corrección, una mejora de velocidad o un ajuste de SEO',
+              'Webs que necesitan cuidado constante y cambios frecuentes',
+              'Webs con un diseño antiguo o una experiencia que ya no funciona',
+            ],
+          },
+          {
+            label: 'Qué incluye',
+            cells: [
+              'Solo lo que encargues',
+              'Actualizaciones, seguridad y mejoras periódicas, según lo que acordemos',
+              'Nuevo diseño y experiencia de uso, conservando tu contenido y tu posicionamiento',
+            ],
+          },
+          {
+            label: 'Cómo se contrata',
+            cells: [
+              'Por trabajo, con presupuesto previo',
+              'Con un plan acordado con vos',
+              'Como un proyecto, con presupuesto previo',
+            ],
+          },
+        ],
+      },
+      footnote:
+        'Podés combinar opciones: por ejemplo, empezar con un rediseño y después sumar un plan de mantenimiento.',
+    },
+
+    spotlight: {
+      eyebrow: 'DIAGNÓSTICO DE TU WEB',
+      title: '¿No sabés qué mejorar de tu web?',
+      intro:
+        'Empezamos por un diagnóstico gratuito: reviso tu sitio, te muestro qué está frenando tus resultados y qué cambios conviene hacer primero. Después vos decidís qué encargar.',
+      points: [
+        {
+          icon: 'gauge',
+          title: 'Velocidad y rendimiento',
+          text: 'Cómo carga tu web y qué la hace lenta.',
+        },
+        {
+          icon: 'search',
+          title: 'SEO y GEO',
+          text: 'Qué le falta a tu sitio para que Google y las IAs lo entiendan mejor.',
+        },
+        {
+          icon: 'palette',
+          title: 'Diseño y uso',
+          text: 'Si tu web es clara, se ve bien en el celular y guía al visitante.',
+        },
+        {
+          icon: 'shield-check',
+          title: 'Seguridad y actualizaciones',
+          text: 'Si todo está al día y bien protegido.',
+        },
+      ],
+      useCasesTitle: 'Qué recibís',
+      useCases: [
+        'Qué mejorar y en qué orden',
+        'Los cambios y optimizaciones posibles',
+        'Un presupuesto de lo que elijas',
+      ],
+      ctaLabel: 'Quiero un diagnóstico de mi web',
+      ctaNote: 'Pasame el enlace de tu sitio y te cuento qué veo.',
+    },
+
+    needs: [
+      {
+        title: 'Enlace de tu web',
+        text: 'La dirección de tu sitio actual, para que pueda revisarlo.',
+      },
+      {
+        title: 'Qué querés mejorar',
+        text: 'Lo que te molesta o lo que querés lograr: más velocidad, un diseño nuevo, más consultas, aparecer en Google.',
+      },
+      {
+        title: 'Accesos',
+        text: 'Los accesos a tu sitio, tu hosting y tu dominio, si hace falta tocar algo. Los compartimos de forma segura.',
+      },
+      {
+        title: 'Logo y materiales',
+        text: 'Tu logo, tus colores y las imágenes que tengas, si vamos a renovar el diseño.',
+      },
+      {
+        title: 'Webs que te gusten',
+        text: 'Algunos sitios que te gusten, para entender qué estilo buscás en el rediseño.',
+      },
+    ],
+    startImage: {
+      src: mantenimientoStart,
+      alt: 'Escritorio con una notebook mostrando un panel de métricas y un cuaderno con una lista de tareas de mantenimiento',
+    },
+
+    faqs: [
+      {
+        question: '¿Qué incluye el mantenimiento de una página web?',
+        answer:
+          'Depende de lo que necesite tu sitio: actualizaciones, seguridad, copias de seguridad, corrección de errores, mejoras de velocidad y cambios de contenido. Lo definimos después del diagnóstico y hago solo lo que vos elijas.',
+      },
+      {
+        question: '¿Cuánto cuesta el mantenimiento o el rediseño de una web?',
+        answer:
+          'Depende de lo que necesite tu sitio y de lo que decidas encargar. Escribime desde el formulario con el enlace de tu web y te envío un presupuesto claro, sin compromiso.',
+      },
+      {
+        question: '¿Cuánto tarda?',
+        answer:
+          'Depende de lo que se encargue: un ajuste puntual es rápido y un rediseño completo lleva más tiempo. Después del diagnóstico te paso un plazo concreto.',
+      },
+      {
+        question: '¿El diagnóstico tiene costo?',
+        answer:
+          'No, el primer diagnóstico es gratuito. Reviso tu web y te cuento qué se puede mejorar y cuánto costaría cada cambio.',
+      },
+      {
+        question: '¿Hace falta rehacer toda mi web?',
+        answer:
+          'Muchas veces no. Se puede mejorar lo que ya tenés, de a una cosa o todas juntas, según lo que elijas. Y si algo no tiene arreglo, te lo digo.',
+      },
+      {
+        question: '¿Se puede migrar mi web a otra plataforma sin perder posicionamiento?',
+        answer:
+          'Sí. Cuido las direcciones, los títulos y los textos, y configuro las redirecciones para no perder visitas. Puede haber pequeñas variaciones temporales en Google mientras se actualiza, y las revisamos.',
+      },
+      {
+        question: '¿Trabajás con la plataforma que ya uso?',
+        answer:
+          'Sí. Trabajo con WordPress, Wix, Tiendanube, Shopify y sitios a medida. Si usás otra plataforma, consultame.',
+      },
+    ],
+  },
 
 };

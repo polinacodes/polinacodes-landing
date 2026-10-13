@@ -63,11 +63,11 @@ export const services: Service[] = [
     icon: 'wrench',
     summary: 'Mejoro tu página web actual sin empezar de cero: más rápida, segura y al día.',
     bullets: [
-      'Optimización de velocidad',
-      'Migración de plataforma sin perder posicionamiento',
-      'Correcciones y mejoras continuas',
+      'Rediseño UI/UX y adaptación a celular',
+      'Optimización de velocidad, SEO y GEO',
+      'Migraciones y mejoras continuas',
     ],
-    hasPage: false,
+    hasPage: true,
   },
 ];
 

@@ -61,6 +61,7 @@ const relatedProjects = getProjectsByService(service.slug);
     text={page.answer.text}
     forYou={page.answer.forYou}
     notForYou={page.answer.notForYou}
+    ctaLabel={page.shortCta}
   />
 
   <FeatureGrid
@@ -70,7 +71,7 @@ const relatedProjects = getProjectsByService(service.slug);
     note={page.includesNote}
   />
 
-  <CtaStrip text={page.midCta} />
+  <CtaStrip text={page.midCta} label={page.shortCta} />
 
   {
     page.deepDive?.table && (

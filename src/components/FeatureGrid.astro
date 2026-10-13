@@ -16,6 +16,8 @@ import Workflow from "@lucide/astro/icons/workflow";
 import MessageCircle from "@lucide/astro/icons/message-circle";
 import LayoutDashboard from "@lucide/astro/icons/layout-dashboard";
 import ListChecks from "@lucide/astro/icons/list-checks";
+import ClipboardCheck from '@lucide/astro/icons/clipboard-check';
+import Wrench from '@lucide/astro/icons/wrench';
 import type { FeatureIcon } from "../data/servicePages";
 
 interface Item {
@@ -66,6 +68,8 @@ const icons: Record<FeatureIcon | "check", typeof Check> = {
   "message-circle": MessageCircle,
   "layout-dashboard": LayoutDashboard,
   "list-checks": ListChecks,
+  "clipboard-check": ClipboardCheck,
+  "wrench": Wrench,
 };
 ---
 
