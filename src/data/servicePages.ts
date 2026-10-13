@@ -5,9 +5,17 @@ import tiendasHero from '../assets/services/tiendas-hero.avif';
 import tiendasStart from '../assets/services/tiendas-start.avif';
 import landingsHero from '../assets/services/landings-hero.avif';
 import landingsStart from '../assets/services/landings-start.avif';
+import sistemasHero from '../assets/services/sistemas-hero.avif';
+import sistemasStart from '../assets/services/sistemas-start.avif';
 
-export type FeatureIcon = 'palette' | 'package' | 'credit-card' | 'truck' | 'gauge' | 'graduation-cap' | 'mail' | 'search' | 'smartphone' | 'pencil';
-export type SpotlightIcon = 'target' | 'zap' | 'shield-check' | 'pointer';
+export type FeatureIcon =
+  | 'palette' | 'package' | 'credit-card' | 'truck' | 'gauge' | 'graduation-cap'
+  | 'mail' | 'search' | 'smartphone' | 'pencil'
+  | 'calendar-check' | 'bell' | 'workflow' | 'message-circle' | 'layout-dashboard' | 'list-checks';
+
+export type SpotlightIcon =
+  | 'target' | 'zap' | 'shield-check' | 'pointer'
+  | 'message' | 'bell' | 'workflow' | 'calendar';
 // Contenido de cada página de servicio (/servicios/[slug]).
 // Para sumar una página: completá su entrada acá y poné `hasPage: true` en services.ts.
 
@@ -32,6 +40,7 @@ export interface ServicePage {
   heroImage?: { src: ImageMetadata; alt: string };
   startImage?: { src: ImageMetadata; alt: string };
   includesNote?: string;
+  includesHeading?: { eyebrow: string; title: string };
   /** Frase de la franja de CTA que va después de "Qué incluye" */
   midCta: string;
   /** Bloque propio de cada servicio (evita contenido duplicado entre páginas) */
@@ -451,6 +460,233 @@ export const servicePages: Partial<Record<ServiceSlug, ServicePage>> = {
         question: '¿Puedo agregar páginas o secciones más adelante?',
         answer:
           'Sí. El sitio se arma de forma que se pueda ampliar cuando lo necesites. Los cambios se cotizan según su alcance.',
+      },
+    ],
+  },
+  
+  'sistemas-a-medida': {
+    seoTitle: 'Sistemas a medida, turnos y automatizaciones | Polinacodes',
+    seoDescription:
+      'Desarrollo sistemas a medida: turnos y reservas online, automatizaciones y chatbots para WhatsApp y redes. Pedí tu presupuesto sin compromiso.',
+    h1: 'Sistemas a medida: turnos online, automatizaciones y chatbots',
+    subtitle:
+      'Herramientas pensadas para tu forma de trabajar: que tus clientes reserven solos, que las tareas repetitivas se hagan solas y que nadie se quede sin respuesta.',
+    heroImage: { src: sistemasHero, alt: 'Laptop mostrando un panel de administración de turnos y reservas online' },
+    startImage: { src: sistemasStart, alt: 'Escritorio con un cuaderno abierto mostrando un diagrama de flujo de un sistema a medida, junto a una laptop y un café' },
+    badges: [
+      'Hecho a medida de tu proceso',
+      'Empezamos por lo más simple',
+      'Trabajás directo conmigo',
+    ],
+    ctaLabel: 'Pedir presupuesto para tu sistema',
+
+    includesHeading: {
+      eyebrow: 'QUÉ PUEDO CONSTRUIR',
+      title: 'Qué puedo construir para tu negocio',
+    },
+
+    answer: {
+      heading: 'Un sistema hecho para tu forma de trabajar',
+      text: 'Desarrollo sistemas a medida para negocios y profesionales de Argentina, Latinoamérica y España: turnos y reservas online, automatizaciones que ahorran tareas repetitivas y chatbots para atender por WhatsApp y redes. Soy desarrolladora web full-stack freelance: diseño y programo desde la pantalla que usan tus clientes hasta el panel con el que administrás todo, y te acompaño desde que definimos qué necesitás hasta que el sistema está funcionando.',
+      forYou: [
+        'Hoy agendás turnos o reservas por WhatsApp, llamadas o planillas y querés ordenarlo.',
+        'Repetís siempre las mismas tareas (avisos, mails, copiar datos) y querés que se hagan solas.',
+        'Querés responder consultas frecuentes por WhatsApp o redes sin estar todo el día pendiente.',
+        'Las herramientas que existen no se adaptan a cómo trabajás.',
+      ],
+      notForYou: [
+        'Buscás un programa ya hecho para usar hoy mismo. En ese caso te recomiendo una herramienta existente.',
+        'Querés tener todo terminado de un día para otro, sin pasar por una primera versión.',
+        'Esperás que un chatbot reemplace por completo la atención de una persona: es un apoyo, no un sustituto.',
+      ],
+    },
+
+    includes: [
+      {
+        title: 'Turnos y reservas online',
+        text: 'Tus clientes eligen día y horario desde tu web, sin mensajes de ida y vuelta. Vos ves y gestionás todo desde un panel.',
+        icon: 'calendar-check',
+      },
+      {
+        title: 'Avisos y recordatorios',
+        text: 'Confirmaciones y recordatorios automáticos por email y, según el caso, por WhatsApp, para que nadie se olvide de su turno.',
+        icon: 'bell',
+      },
+      {
+        title: 'Integraciones',
+        text: 'Conecto tu web, tu email, tus planillas y otras herramientas para que los datos pasen solos de un lugar a otro.',
+        icon: 'workflow',
+      },
+      {
+        title: 'Chatbots para WhatsApp y redes',
+        text: 'Respondo las consultas frecuentes automáticamente y derivo a una persona lo que lo necesita. Dependen de las reglas de cada plataforma, y lo vemos en cada caso.',
+        icon: 'message-circle',
+      },
+      {
+        title: 'Panel para administrar',
+        text: 'Un panel simple para ver y gestionar turnos, clientes y datos, con distintos permisos si trabajás en equipo.',
+        icon: 'layout-dashboard',
+      },
+      {
+        title: 'Se construye por etapas',
+        text: 'Empezamos por una primera versión simple y la vamos ampliando, para que empieces a usarlo pronto y no pagues por cosas que no necesitás.',
+        icon: 'list-checks',
+      },
+    ],
+    includesNote:
+      'Los costos de plataformas externas (por ejemplo WhatsApp Business, hosting o herramientas de automatización) los define cada proveedor y se suman al desarrollo. Los revisamos juntos antes de empezar.',
+    midCta: '¿Tenés una tarea que te quita tiempo todos los días?',
+
+    deepDive: {
+      eyebrow: 'ELEGIR CAMINO',
+      title: '¿Sistema a medida, herramienta lista o automatización?',
+      intro:
+        'No siempre hace falta programar un sistema desde cero. Te recomiendo la opción que mejor resuelva tu caso, aunque no sea la más grande.',
+      table: {
+        columns: ['Sistema a medida', 'Herramienta ya hecha', 'Automatización con herramientas existentes'],
+        rows: [
+          {
+            label: 'Ideal para',
+            cells: [
+              'Procesos propios que ninguna herramienta cubre bien',
+              'Necesidades comunes que ya resuelve un producto del mercado',
+              'Conectar herramientas que ya usás y evitar tareas manuales',
+            ],
+          },
+          {
+            label: 'Adaptación a tu forma de trabajar',
+            cells: [
+              'Total: se construye alrededor de tu proceso',
+              'Limitada a lo que ofrece el producto',
+              'Media: depende de lo que permitan las herramientas conectadas',
+            ],
+          },
+          {
+            label: 'Tiempo de arranque',
+            cells: [
+              'Más largo: se desarrolla por etapas',
+              'Inmediato',
+              'Rápido',
+            ],
+          },
+          {
+            label: 'Costos recurrentes',
+            cells: [
+              'Hosting y mantenimiento',
+              'Suscripción al producto',
+              'Suscripción a las herramientas de automatización',
+            ],
+          },
+          {
+            label: 'Control',
+            cells: [
+              'Mayor control sobre el sistema y los datos',
+              'Dependés del proveedor',
+              'Dependés de las herramientas conectadas',
+            ],
+          },
+        ],
+      },
+      footnote:
+        'Los costos y planes de cada herramienta los define su proveedor y cambian con el tiempo. Siempre te recomiendo la opción más simple que resuelva tu necesidad.',
+    },
+
+    spotlight: {
+      eyebrow: 'AUTOMATIZACIONES Y CHATBOTS',
+      title: '¿Querés dejar de repetir las mismas tareas?',
+      intro:
+        'Si pasás el día respondiendo lo mismo, copiando datos de un lado a otro o recordando turnos, hay tareas que pueden hacerse solas. Diseño automatizaciones y chatbots que se encargan de lo repetitivo y te dejan el tiempo para lo importante.',
+      points: [
+        {
+          icon: 'message',
+          title: 'Consultas frecuentes',
+          text: 'Un chatbot responde precios, horarios y dudas comunes, y te pasa la conversación cuando hace falta una persona.',
+        },
+        {
+          icon: 'bell',
+          title: 'Avisos automáticos',
+          text: 'Confirmaciones, recordatorios y seguimientos que salen solos en el momento justo.',
+        },
+        {
+          icon: 'workflow',
+          title: 'Datos que viajan solos',
+          text: 'Lo que llega por tu web o por WhatsApp se guarda en tus planillas o herramientas, sin copiar y pegar.',
+        },
+        {
+          icon: 'calendar',
+          title: 'Turnos sin vueltas',
+          text: 'Tus clientes reservan solos y vos ves todo ordenado en un panel.',
+        },
+      ],
+      useCasesTitle: 'Ideal para',
+      useCases: [
+        'Consultorios y profesionales',
+        'Servicios con turnos',
+        'Atención por WhatsApp',
+        'Tareas repetitivas del día a día',
+      ],
+      ctaLabel: 'Quiero automatizar mi negocio',
+      ctaNote: 'Contame qué tarea te quita más tiempo y vemos cómo resolverla.',
+    },
+
+    needs: [
+      {
+        title: 'Cómo trabajás hoy',
+        text: 'Contame cómo manejás tus turnos, consultas o tareas: en un cuaderno, en planillas, por WhatsApp, como sea. Con eso entiendo tu proceso.',
+      },
+      {
+        title: 'Qué querés mejorar',
+        text: 'Las tareas que más tiempo te llevan o los problemas que se repiten, como olvidos, mensajes perdidos o datos desordenados.',
+      },
+      {
+        title: 'Quién lo va a usar',
+        text: 'Si lo usás solo vos, tu equipo o también tus clientes, para definir las pantallas y los permisos.',
+      },
+      {
+        title: 'Herramientas que ya usás',
+        text: 'Tu web, tu email, tus planillas o tu cuenta de WhatsApp Business, si las tenés, para poder conectarlas.',
+      },
+      {
+        title: 'Sistemas que te gusten',
+        text: 'Ejemplos de apps o sitios de reservas que te resulten cómodos, para entender qué esperás.',
+      },
+    ],
+
+    faqs: [
+      {
+        question: '¿Cuánto cuesta un sistema a medida?',
+        answer:
+          'Depende del alcance: qué funciones necesitás, cuántas personas lo usan y con qué herramientas tiene que conectarse. Escribime desde el formulario con tu idea y te envío un presupuesto claro, sin compromiso.',
+      },
+      {
+        question: '¿Cuánto tarda en estar listo?',
+        answer:
+          'Depende del alcance. Un sistema de turnos simple se resuelve antes que uno con muchas funciones. Trabajamos por etapas, así que podés empezar a usar una primera versión antes de que esté todo terminado. El plazo exacto te lo paso después del diagnóstico.',
+      },
+      {
+        question: '¿Puedo empezar con algo chico y ampliarlo después?',
+        answer:
+          'Sí, y es lo que recomiendo. Empezamos por lo que más te ordena la vida y vamos sumando funciones cuando las necesites, sin rehacer lo anterior.',
+      },
+      {
+        question: '¿Me conviene un sistema a medida o una herramienta que ya existe?',
+        answer:
+          'Depende de tu caso. Si una herramienta ya hecha resuelve lo que necesitás, te lo digo: no tiene sentido programar algo que ya existe. El sistema a medida vale la pena cuando tu forma de trabajar es particular o necesitás conectar varias cosas.',
+      },
+      {
+        question: '¿Puedo tener un chatbot que responda por WhatsApp?',
+        answer:
+          'Sí. Lo evalúo según tu caso, porque funciona a través de las plataformas oficiales (como WhatsApp Business), que tienen sus propias reglas y costos. Un chatbot responde lo frecuente y deriva lo importante a una persona. Escribime tu caso y te cuento qué opción conviene.',
+      },
+      {
+        question: '¿Qué pasa con mis datos y los de mis clientes?',
+        answer:
+          'Se tratan con cuidado y solo se guarda lo necesario para que el sistema funcione. La conexión es segura (HTTPS), los accesos están protegidos con usuario y contraseña, y cada persona ve solo lo que le corresponde según sus permisos. Los datos se alojan en servicios reconocidos, con copias de seguridad periódicas, y el sistema incluye el aviso de privacidad y el consentimiento que corresponden. Para cuestiones legales específicas de tu actividad, conviene consultar también con un profesional.',
+      },
+      {
+        question: '¿Quién mantiene el sistema después de entregarlo?',
+        answer:
+          'Podés pedirme ajustes y mejoras puntuales o contratar un plan de mantenimiento, para que todo siga funcionando y actualizado.',
       },
     ],
   },

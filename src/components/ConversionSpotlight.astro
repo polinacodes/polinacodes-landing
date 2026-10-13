@@ -1,10 +1,15 @@
 ---
-import ArrowRight from '@lucide/astro/icons/arrow-right';
-import Target from '@lucide/astro/icons/target';
-import Zap from '@lucide/astro/icons/zap';
-import ShieldCheck from '@lucide/astro/icons/shield-check';
-import MousePointerClick from '@lucide/astro/icons/mouse-pointer-click';
-import type { SpotlightIcon } from '../data/servicePages';
+import ArrowRight from "@lucide/astro/icons/arrow-right";
+import Target from "@lucide/astro/icons/target";
+import Zap from "@lucide/astro/icons/zap";
+import ShieldCheck from "@lucide/astro/icons/shield-check";
+import MousePointerClick from "@lucide/astro/icons/mouse-pointer-click";
+import CalendarCheck from "@lucide/astro/icons/calendar-check";
+import Bell from "@lucide/astro/icons/bell";
+import Workflow from "@lucide/astro/icons/workflow";
+import MessageCircle from "@lucide/astro/icons/message-circle";
+
+import type { SpotlightIcon } from "../data/servicePages";
 
 interface Point {
   title: string;
@@ -24,13 +29,27 @@ interface Props {
   id?: string;
 }
 
-const { eyebrow, title, intro, points, useCasesTitle, useCases, ctaLabel, ctaNote, id } = Astro.props;
+const {
+  eyebrow,
+  title,
+  intro,
+  points,
+  useCasesTitle,
+  useCases,
+  ctaLabel,
+  ctaNote,
+  id,
+} = Astro.props;
 
 const icons: Record<SpotlightIcon, typeof Target> = {
   target: Target,
   zap: Zap,
-  'shield-check': ShieldCheck,
+  "shield-check": ShieldCheck,
   pointer: MousePointerClick,
+  message: MessageCircle,
+  bell: Bell,
+  workflow: Workflow,
+  calendar: CalendarCheck,
 };
 ---
 
@@ -46,7 +65,9 @@ const icons: Record<SpotlightIcon, typeof Target> = {
           <div class="spot-uses">
             {useCasesTitle && <p class="spot-uses-title">{useCasesTitle}</p>}
             <ul>
-              {useCases.map((item) => <li>{item}</li>)}
+              {useCases.map((item) => (
+                <li>{item}</li>
+              ))}
             </ul>
           </div>
         )
@@ -54,7 +75,8 @@ const icons: Record<SpotlightIcon, typeof Target> = {
 
       <div class="spot-actions">
         <a class="btn spot-cta" href="#contacto">
-          {ctaLabel} <ArrowRight size={16} aria-hidden="true" />
+          {ctaLabel}
+          <ArrowRight size={16} aria-hidden="true" />
         </a>
         {ctaNote && <p class="spot-note">{ctaNote}</p>}
       </div>
@@ -66,7 +88,9 @@ const icons: Record<SpotlightIcon, typeof Target> = {
           const Icon = icons[point.icon];
           return (
             <article class="spot-card">
-              <div class="spot-icon" aria-hidden="true"><Icon size={28} stroke-width={2} /></div>
+              <div class="spot-icon" aria-hidden="true">
+                <Icon size={28} stroke-width={2} />
+              </div>
               <h3>{point.title}</h3>
               <p>{point.text}</p>
             </article>
@@ -80,7 +104,11 @@ const icons: Record<SpotlightIcon, typeof Target> = {
 <style>
   .spotlight {
     background:
-      radial-gradient(circle 560px at 100% 0%, rgba(227, 120, 211, 0.35), transparent),
+      radial-gradient(
+        circle 560px at 100% 0%,
+        rgba(227, 120, 211, 0.35),
+        transparent
+      ),
       var(--text-primary);
     color: #fff;
   }

@@ -5,11 +5,17 @@ import Package from "@lucide/astro/icons/package";
 import CreditCard from "@lucide/astro/icons/credit-card";
 import Truck from "@lucide/astro/icons/truck";
 import Gauge from "@lucide/astro/icons/gauge";
-import Mail from '@lucide/astro/icons/mail';
-import Search from '@lucide/astro/icons/search';
-import Smartphone from '@lucide/astro/icons/smartphone';
-import Pencil from '@lucide/astro/icons/pencil';
+import Mail from "@lucide/astro/icons/mail";
+import Search from "@lucide/astro/icons/search";
+import Smartphone from "@lucide/astro/icons/smartphone";
+import Pencil from "@lucide/astro/icons/pencil";
 import GraduationCap from "@lucide/astro/icons/graduation-cap";
+import CalendarCheck from "@lucide/astro/icons/calendar-check";
+import Bell from "@lucide/astro/icons/bell";
+import Workflow from "@lucide/astro/icons/workflow";
+import MessageCircle from "@lucide/astro/icons/message-circle";
+import LayoutDashboard from "@lucide/astro/icons/layout-dashboard";
+import ListChecks from "@lucide/astro/icons/list-checks";
 import type { FeatureIcon } from "../data/servicePages";
 
 interface Item {
@@ -53,7 +59,13 @@ const icons: Record<FeatureIcon | "check", typeof Check> = {
   mail: Mail,
   search: Search,
   smartphone: Smartphone,
-  pencil: Pencil
+  pencil: Pencil,
+  "calendar-check": CalendarCheck,
+  bell: Bell,
+  workflow: Workflow,
+  "message-circle": MessageCircle,
+  "layout-dashboard": LayoutDashboard,
+  "list-checks": ListChecks,
 };
 ---
 

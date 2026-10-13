@@ -17,8 +17,7 @@ import {
   buildServiceSchema,
   buildBreadcrumbSchema,
 } from "../../lib/serviceSchema";
-import ConversionSpotlight from '../../components/ConversionSpotlight.astro';
-
+import ConversionSpotlight from "../../components/ConversionSpotlight.astro";
 
 export function getStaticPaths() {
   return services
@@ -65,8 +64,8 @@ const relatedProjects = getProjectsByService(service.slug);
   />
 
   <FeatureGrid
-    eyebrow="QUÉ INCLUYE"
-    title="Qué incluye este servicio"
+    eyebrow={page.includesHeading?.eyebrow ?? "QUÉ INCLUYE"}
+    title={page.includesHeading?.title ?? "Qué incluye este servicio"}
     items={page.includes}
     note={page.includesNote}
   />
@@ -86,7 +85,11 @@ const relatedProjects = getProjectsByService(service.slug);
     )
   }
 
-  {page.spotlight && <ConversionSpotlight {...page.spotlight} id="alta-conversion" />}
+  {
+    page.spotlight && (
+      <ConversionSpotlight {...page.spotlight} id="alta-conversion" />
+    )
+  }
 
   <Portfolio
     projects={relatedProjects}

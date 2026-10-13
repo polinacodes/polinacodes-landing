@@ -23,7 +23,7 @@ export interface Service {
 export const services: Service[] = [
   {
     slug: 'tiendas-online',
-    name: 'Tiendas Online & Ecommerce',
+    name: 'Tiendas Online y Ecommerce',
     formLabel: 'Tienda online / Ecommerce',
     icon: 'cart',
     summary: 'Creo tu tienda online para que puedas vender y administrarla fácilmente.',
@@ -36,7 +36,7 @@ export const services: Service[] = [
   },
   {
     slug: 'landing-pages',
-    name: 'Landing Pages & Páginas Web para Empresas',
+    name: 'Landing Pages y Páginas Web para Empresas',
     formLabel: 'Landing page / Web para empresa',
     icon: 'rocket',
     summary: 'Diseño páginas web claras que explican lo que ofrecés y hacen que te consulten.',
@@ -49,20 +49,16 @@ export const services: Service[] = [
   },
   {
     slug: 'sistemas-a-medida',
-    name: 'Sistemas de Gestión & CRM a Medida',
-    formLabel: 'CRM / Sistema a medida',
+    name: 'Sistemas a Medida y Automatizaciones',
+    formLabel: 'Sistema a medida / Automatización',
     icon: 'dashboard',
-    summary: 'Desarrollo software a medida para ordenar tu información y ahorrar tareas repetitivas.',
-    bullets: [
-      'Desarrollo completo con Node.js y React',
-      'Paneles con permisos por usuario y automatizaciones',
-      'Pensado para crecer con tu negocio',
-    ],
-    hasPage: false,
+    summary: 'Desarrollo sistemas de turnos, automatizaciones y chatbots que ordenan tu negocio y te ahorran tareas repetitivas.',
+    bullets: ['Turnos y reservas online', 'Automatizaciones y avisos', 'Chatbots para WhatsApp y redes'],
+    hasPage: true,
   },
   {
     slug: 'mantenimiento-web',
-    name: 'Mantenimiento Web, Rediseño & Migraciones',
+    name: 'Mantenimiento Web, Rediseño y Migraciones',
     formLabel: 'Mantenimiento / Rediseño',
     icon: 'wrench',
     summary: 'Mejoro tu página web actual sin empezar de cero: más rápida, segura y al día.',
