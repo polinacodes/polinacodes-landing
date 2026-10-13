@@ -233,3 +233,130 @@
         }
     }
 }
+
+/* ===== Alta conversión: se expande al hacer scroll (solo escritorio) ===== */
+@keyframes spotlight-expand {
+  from { clip-path: inset(0 var(--spot-inset, 0px) round 32px); }
+  to   { clip-path: inset(0 0 round 0); }
+}
+
+@media (prefers-reduced-motion: no-preference) and (min-width: 1025px) {
+  @supports (animation-timeline: view()) {
+    .spotlight {
+      --spot-inset: clamp(0px, calc((100vw - 1160px) / 2 - 24px), 3vw);
+      animation: spotlight-expand linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 100%;
+    }
+  }
+}
+
+/* ===== Brillo que sigue al cursor + levantado ===== */
+.feature-section.is-icon .feature-card {
+  position: relative;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .spotlight .spot-card {
+    position: relative;
+    transition:
+      transform 0.3s var(--ease-out),
+      box-shadow 0.3s ease,
+      border-color 0.3s ease;
+  }
+  .spotlight .spot-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 50px rgba(0, 0, 0, 0.45);
+    border-color: rgba(227, 120, 211, 0.45);
+  }
+
+  .spotlight .spot-card::after,
+  .feature-section.is-icon .feature-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    background: radial-gradient(
+      circle 220px at var(--mx, 50%) var(--my, 50%),
+      rgba(227, 120, 211, 0.26),
+      transparent 70%
+    );
+  }
+  .spotlight .spot-card:hover::after,
+  .feature-section.is-icon .feature-card:hover::after {
+    opacity: 1;
+  }
+}
+
+/* ===== Etiquetas oscuras: levantado + brillo que sigue al cursor ===== */
+@media (hover: hover) and (pointer: fine) {
+  .spotlight .spot-uses li {
+    position: relative;
+    cursor: default;
+    transition:
+      transform 0.25s var(--ease-out),
+      border-color 0.25s ease,
+      background-color 0.25s ease;
+  }
+  .spotlight .spot-uses li:hover {
+    /* transform: translateY(-2px); */
+    border-color: rgba(227, 120, 211, 0.55);
+    background-color: rgba(255, 255, 255, 0.12);
+  }
+  .spotlight .spot-uses li::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    background: radial-gradient(
+      circle 90px at var(--mx, 50%) var(--my, 50%),
+      rgba(227, 120, 211, 0.35),
+      transparent 70%
+    );
+  }
+  .spotlight .spot-uses li:hover::after {
+    opacity: 1;
+  }
+}
+
+/* ===== Etiquetas claras ===== */
+@media (hover: hover) and (pointer: fine) {
+  .svc-badges li,
+  .hero .metrics span {
+    position: relative;
+    cursor: default;
+    transition:
+      transform 0.25s var(--ease-out),
+      border-color 0.25s ease;
+  }
+  .svc-badges li:hover,
+  .hero .metrics span:hover {
+    /* transform: translateY(-2px); */
+    border-color: rgba(227, 120, 211, 0.7);
+  }
+  .svc-badges li::after,
+  .hero .metrics span::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    background: radial-gradient(
+      circle 80px at var(--mx, 50%) var(--my, 50%),
+      rgba(227, 120, 211, 0.22),
+      transparent 70%
+    );
+  }
+  .svc-badges li:hover::after,
+  .hero .metrics span:hover::after {
+    opacity: 1;
+  }
+}

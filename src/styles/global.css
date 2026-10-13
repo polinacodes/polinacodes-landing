@@ -132,6 +132,11 @@ textarea:focus-visible {
 }
 .text-link:hover { color: #9d4192; }
 
+::selection {
+  background: var(--accent-brand);
+  color: #111;
+}
+
 /* ---------- Responsive global ---------- */
 @media (max-width: 768px) {
   :root { --container: min(100% - 32px, 680px); }

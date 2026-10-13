@@ -41,11 +41,11 @@ export const services: Service[] = [
     icon: 'rocket',
     summary: 'Diseño páginas web claras que explican lo que ofrecés y hacen que te consulten.',
     bullets: [
-      'Astro, Next.js o WordPress, según el caso',
+      'HTML, CSS y JS, Astro, Next.js o WordPress',
       'Se ven bien en celular y son accesibles',
       'SEO técnico desde la base',
     ],
-    hasPage: false,
+    hasPage: true,
   },
   {
     slug: 'sistemas-a-medida',

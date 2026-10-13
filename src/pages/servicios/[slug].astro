@@ -17,6 +17,8 @@ import {
   buildServiceSchema,
   buildBreadcrumbSchema,
 } from "../../lib/serviceSchema";
+import ConversionSpotlight from '../../components/ConversionSpotlight.astro';
+
 
 export function getStaticPaths() {
   return services
@@ -83,6 +85,8 @@ const relatedProjects = getProjectsByService(service.slug);
       />
     )
   }
+
+  {page.spotlight && <ConversionSpotlight {...page.spotlight} id="alta-conversion" />}
 
   <Portfolio
     projects={relatedProjects}

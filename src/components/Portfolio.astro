@@ -1,6 +1,6 @@
 ---
-import ProjectCard from './ProjectCard.astro';
-import type { Project } from '../data/projects';
+import ProjectCard from "./ProjectCard.astro";
+import type { Project } from "../data/projects";
 
 interface Props {
   projects: Project[];
@@ -12,10 +12,10 @@ interface Props {
 
 const {
   projects,
-  eyebrow = 'PORTFOLIO',
-  title = 'Proyectos de desarrollo web y tiendas online',
-  intro = 'Una muestra de lo que puedo construir para tu negocio.',
-  id = 'portfolio',
+  eyebrow = "PORTFOLIO",
+  title = "Proyectos de desarrollo web y tiendas online",
+  intro = "Una muestra de lo que puedo construir para tu negocio.",
+  id = "portfolio",
 } = Astro.props;
 ---
 
@@ -31,7 +31,9 @@ const {
           <p class="section-lead">{intro}</p>
         </div>
         <div class="project-grid">
-          {projects.map((project: Project) => <ProjectCard project={project} />)}
+          {projects.map((project: Project) => (
+            <ProjectCard project={project} />
+          ))}
         </div>
       </div>
     </section>
@@ -39,7 +41,9 @@ const {
 }
 
 <style>
-  .portfolio { background: #fff; }
+  .portfolio {
+    background: #fff;
+  }
 
   .section-heading {
     display: flex;
@@ -48,7 +52,14 @@ const {
     align-items: end;
     margin-bottom: 45px;
   }
-  .section-heading .section-lead { max-width: 330px; margin: 0; }
+  .section-heading .section-lead {
+    max-width: 330px;
+    margin: 0;
+  }
+
+  .section-heading .section-title {
+    margin-bottom: 0;
+  }
 
   .project-grid {
     display: grid;
@@ -57,8 +68,14 @@ const {
   }
 
   @media (max-width: 768px) {
-    .section-heading { display: block; }
-    .section-heading .section-lead { margin-top: 18px; }
-    .project-grid { grid-template-columns: 1fr; }
+    .section-heading {
+      display: block;
+    }
+    .section-heading .section-lead {
+      margin-top: 18px;
+    }
+    .project-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

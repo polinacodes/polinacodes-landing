@@ -26,6 +26,8 @@ const groups: Array<[selector: string, variant: Variant]> = [
   ['.cta-strip', 'up'],
   ['.start-list li', 'up'],
   ['.start-media', 'right'],
+  ['.spot-copy > *', 'up'],
+  ['.spot-card', 'scale'],
 ];
 
 const STEP = 90; // ms entre elementos que aparecen a la vez
