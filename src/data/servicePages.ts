@@ -46,6 +46,7 @@ export interface ServicePage {
   includesHeading?: { eyebrow: string; title: string };
   /** Frase de la franja de CTA que va después de "Qué incluye" */
   midCta: string;
+  shortCta?: string;
   /** Bloque propio de cada servicio (evita contenido duplicado entre páginas) */
   deepDive?: {
     eyebrow: string;

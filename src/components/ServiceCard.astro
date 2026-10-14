@@ -47,64 +47,87 @@ const Icon = icons[service.icon];
 
 <style>
   .service-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 25px;
-    display: flex;
-    flex-direction: column;
-    min-height: 410px;
-    transition:
-      transform 0.2s,
-      box-shadow 0.2s;
-  }
-  .service-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-hover);
-  }
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 410px;
+  padding: 25px;
+  color: #fff;
+  background:
+    radial-gradient(circle 240px at 100% 0%, rgba(227, 120, 211, 0.28), transparent),
+    var(--text-primary);
+  border: 1px solid #2a2a2e;
+  border-radius: var(--radius);
+  transition:
+    transform 0.3s var(--ease-out),
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
+  border-color: rgba(227, 120, 211, 0.4);
+}
 
-  .service-icon {
-    width: 48px;
-    height: 48px;
-    display: grid;
-    place-items: center;
-    border-radius: 12px;
-    background: rgba(227, 120, 211, 0.12);
-    color: #9d4192;
-    margin-bottom: 22px;
-  }
+.service-icon {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: rgba(227, 120, 211, 0.16);
+  color: var(--accent-brand);
+  margin-bottom: 22px;
+}
 
-  h3 {
-    font-size: 18px;
-    line-height: 1.25;
-    margin: 0 0 12px;
-    letter-spacing: -0.02em;
-  }
+h3 {
+  font-size: 18px;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: #fff;
+  margin: 0 0 12px;
+}
+.service-card > p {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.78);
+  margin: 0 0 18px;
+}
 
-  .service-card > p {
-    font-size: 13px;
-    color: var(--text-secondary);
-    margin: 0 0 18px;
-  }
+ul {
+  padding-left: 18px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 12px;
+}
+li {
+  margin-bottom: 8px;
+}
+li::marker {
+  color: var(--accent-brand);
+}
 
-  ul {
-    padding-left: 18px;
-    margin: 0;
-    color: #444;
-    font-size: 12px;
-  }
-  li {
-    margin-bottom: 8px;
-  }
-
-  .card-actions {
-    margin-top: auto;
-    padding-top: 24px;
-  }
-
-  .btn-card {
-    width: 100%;
-    min-height: 43px;
-    font-size: 12px;
-  }
+.card-actions {
+  margin-top: auto;
+  padding-top: 24px;
+  text-align: center;
+}
+.btn-card {
+  width: 100%;
+  min-height: 43px;
+  font-size: 12px;
+  background: #fff;
+  border-color: #fff;
+  color: #111;
+}
+.btn-card:hover {
+  background: #ececf1;
+  border-color: #ececf1;
+  color: #111;
+}
+.service-card .text-link {
+  color: #fff;
+}
+.service-card .text-link:hover {
+  color: var(--accent-brand);
+}
 </style>

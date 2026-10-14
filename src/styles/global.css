@@ -88,7 +88,7 @@ textarea:focus-visible {
   font-weight: 800;
   letter-spacing: -.04em;
 }
-.brand span { color: var(--accent-brand); }
+
 
 /* ---------- Botones y links ---------- */
 .btn {

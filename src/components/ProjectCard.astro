@@ -17,7 +17,6 @@ const {
   metric,
 } = Astro.props.project;
 
-// Placeholders visuales mientras el proyecto no tenga `image`
 const mockups = {
   shop: { label: "SHOP", headline: "Simple. Rápida.<br>Lista para vender." },
   agency: { label: "STUDIO", headline: "Tu marca.<br>En movimiento." },
@@ -82,7 +81,7 @@ const m = mockups[mockup];
   {
     url && (
       <a class="text-link" href={url} target="_blank" rel="noopener noreferrer">
-        Ver demo en vivo →
+        Ver sitio en vivo →
       </a>
     )
   }
@@ -90,6 +89,8 @@ const m = mockups[mockup];
 
 <style>
   .project-card {
+    display: flex;
+    flex-direction: column;
     border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 12px;
@@ -105,7 +106,7 @@ const m = mockups[mockup];
   }
 
   .mockup {
-    aspect-ratio: 1.25;
+    aspect-ratio: 16/9;
     background: #e7e7ea;
     border-radius: 12px;
     overflow: hidden;
@@ -227,11 +228,13 @@ const m = mockups[mockup];
   }
 
   .description {
+    flex: 1;
     font-size: 12px;
     color: var(--text-secondary);
     margin: 10px 8px 0;
   }
   .text-link {
-    margin-left: 8px;
+    align-self: flex-end;
+    margin: 14px 8px 4px 0;
   }
 </style>

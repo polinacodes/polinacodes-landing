@@ -360,3 +360,23 @@
     opacity: 1;
   }
 }
+
+@media (hover: hover) and (pointer: fine) {
+  .service-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    background: radial-gradient(
+      circle 220px at var(--mx, 50%) var(--my, 50%),
+      rgba(227, 120, 211, 0.26),
+      transparent 70%
+    );
+  }
+  .service-card:hover::after {
+    opacity: 1;
+  }
+}

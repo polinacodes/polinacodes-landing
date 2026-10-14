@@ -1,9 +1,10 @@
 import type { ImageMetadata } from 'astro';
 import type { ServiceSlug } from './services';
-
-// Para usar fotos reales: guardalas en src/assets/projects/ e importalas:
-//   import tiendaModa from '../assets/projects/tienda-moda.jpg';
-// y poné `image: tiendaModa` en el proyecto. Astro las optimiza solo (webp, tamaños, lazy).
+import abuelaTienda from '../assets/projects/abuela-tienda.webp';
+import glamConfessionsTienda from '../assets/projects/glam-confessions-tienda.webp';
+import lunatycaTienda from '../assets/projects/lunatyca-tienda.webp';
+import ondoAsesoresLanding from '../assets/projects/ondo-asesores-landing.webp';
+import portfolioPolinacodes from '../assets/projects/portfolio-polinacodes.webp';
 
 export type ProjectMockup = 'shop' | 'agency' | 'crm';
 
@@ -12,59 +13,73 @@ export interface Project {
   title: string;
   description: string;
   technologies: string[];
-  /** A qué servicio(s) pertenece. Define en qué páginas de servicio aparece. */
   services: ServiceSlug[];
-  /** true = se muestra en el home */
   featured: boolean;
   url?: string;
   image?: ImageMetadata;
   imageAlt?: string;
-  /** Placeholder visual mientras no haya `image` */
   mockup?: ProjectMockup;
   metric?: { value: string; label: string };
 }
 
-// EJEMPLOS: reemplazar por proyectos reales
 export const projects: Project[] = [
   {
-    slug: 'ecommerce-moda',
-    title: 'E-commerce de moda',
-    description: 'Tienda con checkout simplificado y catálogo optimizado.',
-    technologies: ['Shopify', 'Liquid', 'SEO'],
-    services: ['tiendas-online'],
+    slug: 'abuela-tienda',
+    title: 'Abuela',
+    description: 'Rediseño de la tienda en Tiendanube, con diseño a medida en CSS, catálogo ordenado y SEO técnico.',
+    technologies: ['Tiendanube', 'CSS'],
+    services: ['tiendas-online', 'mantenimiento-web'],
     featured: true,
-    mockup: 'shop',
-    metric: { value: '100/100', label: 'Lighthouse' },
+    url:'https://abuela2.mitiendanube.com/',
+    image: abuelaTienda,
+    imageAlt: 'Captura de la tienda online de Abuela',
+    // metric: { value: '100/100', label: 'Lighthouse' },
   },
   {
-    slug: 'landing-servicios',
-    title: 'Landing de servicios',
-    description: 'Landing de alta conversión enfocada en captar consultas.',
-    technologies: ['HTML', 'CSS', 'JavaScript'],
+    slug: 'lunatyca-tienda',
+    title: 'Lunatyca',
+    description: 'Rediseño de la tienda en Tiendanube con diseño a medida, catálogo por categorías y SEO avanzado.',
+    technologies: ['Tiendanube', 'CSS'],
+    services: ['tiendas-online', 'mantenimiento-web'],
+    featured: true,
+    url:'https://lunatyca.mitiendanube.com/',
+    image: lunatycaTienda,
+    imageAlt: 'Captura de la tienda online de Lunatyca',
+    // metric: { value: '0.8s', label: 'carga inicial' },
+  },
+  {
+    slug: 'portfolio-polinacodes',
+    title: 'Portfolio personal',
+    description: 'Mi portfolio profesional en Astro, TypeScript y Tailwind CSS: proyectos, habilidades y contacto.',
+    technologies: ['Astro', 'TypeScript', 'Tailwind CSS'],
     services: ['landing-pages'],
     featured: true,
-    mockup: 'agency',
-    metric: { value: '0.8s', label: 'carga inicial' },
+    url:'https://portfolio.polinacodes.dev/',
+    image: portfolioPolinacodes,
+    imageAlt: 'Captura del portfolio de PolinaCodes',
+    metric: { value: '99', label: 'PageSpeed móvil' },
   },
   {
-    slug: 'crm-a-medida',
-    title: 'CRM a medida',
-    description: 'Panel interno que centraliza clientes, tareas y reportes.',
-    technologies: ['React', 'Node.js', 'DB'],
-    services: ['sistemas-a-medida'],
-    featured: true,
-    mockup: 'crm',
-    metric: { value: '−42%', label: 'tareas manuales' },
-  },
-  {
-    // Ejemplo de proyecto NO destacado: no sale en el home, sí en su página de servicio
-    slug: 'tienda-deco',
-    title: 'Tienda de decoración',
-    description: 'Migración de plataforma sin perder posicionamiento.',
-    technologies: ['WooCommerce', 'PHP'],
-    services: ['tiendas-online', 'mantenimiento-web'],
+    slug: 'glam-confessions-tienda',
+    title: 'Glam Confessions',
+    description: 'Tienda online de maquillaje en WordPress y WooCommerce, con diseño propio hecho con Elementor.',
+    technologies: ['WordPress', 'Elementor', 'WooCommerce', 'PHP'],
+    services: ['tiendas-online'],
     featured: false,
-    mockup: 'shop',
+    url:'https://glamconfessions.com.ar/',
+    image: glamConfessionsTienda,
+    imageAlt: 'Captura de la tienda online de Glam Confessions',
+  },
+  {
+    slug: 'ondo-asesores-landing',
+    title: 'Landing para asesoría',
+    description: 'Landing de demostración para una asesoría de autónomos y pymes, pensada para conseguir consultas, con SEO y GEO desde la base.',
+    technologies: ['HTML', 'CSS', 'JavaScript'],
+    services: ['landing-pages'],
+    featured: false,
+    url:'https://ondo-asesores.vercel.app/',
+    image: ondoAsesoresLanding,
+    imageAlt: 'Captura de la landing page para Asesores',
   },
 ];
 
