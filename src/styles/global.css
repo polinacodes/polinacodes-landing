@@ -64,7 +64,7 @@ textarea:focus-visible {
   font-weight: 800;
   letter-spacing: .15em;
   margin: 0 0 18px;
-  color: #777;
+  color: #666;
 }
 
 .section-intro { max-width: 700px; }

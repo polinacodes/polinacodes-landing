@@ -1,0 +1,87 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import Contact from '../../components/Contact.astro';
+import { services } from '../../data/services';
+---
+
+<MainLayout
+  title="Servicios de desarrollo web | Polinacodes"
+  description="Tiendas online, landing pages y páginas web, sistemas a medida y automatizaciones, mantenimiento y rediseño web. Desarrollo web freelance con atención directa."
+>
+  <section class="svc-index">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Ruta de navegación">
+        <ol>
+          <li><a href="/">Inicio</a></li>
+          <li aria-current="page">Servicios</li>
+        </ol>
+      </nav>
+
+      <div class="section-intro narrow">
+        <p class="eyebrow">SERVICIOS</p>
+        <h1 class="section-title">Servicios de desarrollo web</h1>
+        <p class="section-lead">
+          Creo y mejoro páginas web, tiendas online, sistemas y automatizaciones para negocios y profesionales de
+          Argentina, Latinoamérica y España. Elegí lo que necesitás y contame tu idea.
+        </p>
+      </div>
+
+      <div class="service-grid">
+        {services.map((service) => <ServiceCard service={service} />)}
+      </div>
+    </div>
+  </section>
+
+  <Contact />
+</MainLayout>
+
+<style>
+  .svc-index {
+    padding: 150px 0 105px;
+  }
+
+  .breadcrumb ol {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 0;
+    margin: 0 0 28px;
+    font-size: 13px;
+    color: #666;
+  }
+  .breadcrumb li + li::before {
+    content: "/";
+    margin-right: 8px;
+    color: #bbb;
+  }
+  .breadcrumb a:hover {
+    color: #9d4192;
+  }
+  .breadcrumb li[aria-current="page"] {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  .service-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  @media (max-width: 1024px) {
+    .service-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .svc-index {
+      padding: 130px 0 80px;
+    }
+    .service-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
