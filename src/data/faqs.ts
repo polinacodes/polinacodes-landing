@@ -19,11 +19,11 @@ export const generalFaqs: FaqItem[] = [
     answer:
       'Depende del alcance. Una landing sencilla puede estar en pocos días; una tienda o un sistema a medida lleva más etapas. Después del diagnóstico te paso un plazo concreto.',
   },
-  {
-    question: '¿Cómo funciona el pago 50/50?',
-    answer:
-      'Abonás el 50% para empezar y reservar tu lugar en mi agenda, y el 50% restante antes del lanzamiento final. Si sos de Argentina, podés pagar en pesos según la cotización del día. Si sos de otro país, podés pagar en dólares o euros por transferencia internacional o PayPal.',
-  },
+  // {
+  //   question: '¿Cómo funciona el pago 50/50?',
+  //   answer:
+  //     'Abonás el 50% para empezar y reservar tu lugar en mi agenda, y el 50% restante antes del lanzamiento final. Si sos de Argentina, podés pagar en pesos según la cotización del día. Si sos de otro país, podés pagar en dólares o euros por transferencia internacional o PayPal.',
+  // },
   {
     question: '¿Voy a poder editar los contenidos yo mismo?',
     answer:
