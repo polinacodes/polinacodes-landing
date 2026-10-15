@@ -15,7 +15,6 @@ export const buildBusinessSchema = () => ({
     { '@type': 'Country', name: 'España' },
     { '@type': 'Place', name: 'Latinoamérica' },
   ],
-  serviceType: ['Desarrollo web', 'Tiendas online', 'Landing pages', 'Sistemas a medida'],
   knowsAbout: ['Tiendanube', 'Shopify', 'WooCommerce', 'Astro', 'React', 'Node.js', 'SEO técnico'],
   founder: { '@type': 'Person', name: 'POLINACODES', jobTitle: 'Desarrolladora web freelance' },
   sameAs: [site.social.github, site.social.linkedin],
