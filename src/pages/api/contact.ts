@@ -23,7 +23,7 @@ const buildEmail = (d: { name: string; email: string; service: string; budget: s
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;margin:0 auto;">
     <tr>
       <td style="padding:0 4px 16px;font-size:18px;font-weight:800;letter-spacing:-0.04em;">
-        Polina<span style="color:#E378D3;">.</span>codes
+        polina<span style="color:#E378D3;">.</span>codes
       </td>
     </tr>
     <tr>
