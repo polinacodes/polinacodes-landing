@@ -1,7 +1,18 @@
 ---
 import { services } from '../data/services';
+import { site } from '../config/site';
 import ChevronDown from '@lucide/astro/icons/chevron-down';
+import X from '@lucide/astro/icons/x';
 import Logo from './Logo.astro';
+import Instagram from './icons/Instagram.astro';
+import Linkedin from './icons/Linkedin.astro';
+import Github from './icons/Github.astro';
+
+const socials = [
+  { name: 'Instagram', href: site.social.instagram, Icon: Instagram },
+  { name: 'LinkedIn', href: site.social.linkedin, Icon: Linkedin },
+  { name: 'GitHub', href: site.social.github, Icon: Github },
+];
 ---
 
 <header class="site-header">
@@ -13,6 +24,14 @@ import Logo from './Logo.astro';
     </button>
 
     <nav id="main-menu" class="main-nav" aria-label="Navegación principal">
+      <!-- Solo se ve en celular (panel lateral) -->
+      <div class="drawer-head">
+        <Logo size={32} />
+        <button class="drawer-close" type="button" aria-label="Cerrar menú">
+          <X size={24} aria-hidden="true" />
+        </button>
+      </div>
+
       <div class="nav-item has-sub">
         <a href="/#servicios">Servicios</a>
         <button
@@ -38,15 +57,36 @@ import Logo from './Logo.astro';
       <a href="/#proceso">Proceso</a>
       <a href="/#faqs">FAQs</a>
       <a class="btn btn-small" href="/#contacto">Pedir presupuesto</a>
+
+      <!-- Solo se ve en celular -->
+      <div class="drawer-foot">
+        <ul class="drawer-socials">
+          {
+            socials.map(({ name, href, Icon }) => (
+              <li>
+                <a href={href} target="_blank" rel="noopener noreferrer" aria-label={name}>
+                  <Icon />
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
     </nav>
   </div>
+
+  <div class="nav-overlay" aria-hidden="true"></div>
 </header>
 
 <script>
+  const header = document.querySelector<HTMLElement>('.site-header');
   const menuButton = document.querySelector<HTMLButtonElement>('.menu-toggle');
   const menu = document.querySelector<HTMLElement>('#main-menu');
+  const overlay = document.querySelector<HTMLElement>('.nav-overlay');
+  const closeButton = document.querySelector<HTMLButtonElement>('.drawer-close');
   const subItem = document.querySelector<HTMLElement>('.nav-item.has-sub');
   const subToggle = subItem?.querySelector<HTMLButtonElement>('.sub-toggle');
+  const mobile = window.matchMedia('(max-width: 768px)');
 
   const setSub = (open: boolean) => {
     if (!subItem || !subToggle) return;
@@ -54,43 +94,90 @@ import Logo from './Logo.astro';
     subToggle.setAttribute('aria-expanded', String(open));
   };
 
-  if (menuButton && menu) {
-    const setOpen = (open: boolean) => {
-      menu.classList.toggle('is-open', open);
-      menuButton.setAttribute('aria-expanded', String(open));
-      menuButton.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
-      if (!open) setSub(false);
-    };
+  const isOpen = () => !!menu?.classList.contains('is-open');
 
-    menuButton.addEventListener('click', () => setOpen(!menu.classList.contains('is-open')));
-    menu.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setOpen(false)));
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') setOpen(false);
-    });
-  }
+  const setOpen = (open: boolean, returnFocus = false) => {
+    if (!menu || !menuButton || !header) return;
+    menu.classList.toggle('is-open', open);
+    header.classList.toggle('menu-open', open);
+    document.documentElement.classList.toggle('no-scroll', open);
+    menuButton.setAttribute('aria-expanded', String(open));
+    menuButton.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
 
-  if (subItem && subToggle) {
-    subToggle.addEventListener('click', () => setSub(!subItem.classList.contains('is-open')));
-    document.addEventListener('click', (e) => {
-      if (!subItem.contains(e.target as Node)) setSub(false);
-    });
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') setSub(false);
-    });
-  }
+    if (open) {
+      closeButton?.focus();
+    } else {
+      setSub(false);
+      if (returnFocus) menuButton.focus();
+    }
+  };
+
+  menuButton?.addEventListener('click', () => setOpen(!isOpen(), true));
+  closeButton?.addEventListener('click', () => setOpen(false, true));
+  overlay?.addEventListener('click', () => setOpen(false, true));
+  menu?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setOpen(false)));
+
+  // Si se agranda la ventana con el panel abierto, se cierra
+  mobile.addEventListener('change', (e) => {
+    if (!e.matches) setOpen(false);
+  });
+
+  subToggle?.addEventListener('click', () => setSub(!subItem?.classList.contains('is-open')));
+
+  document.addEventListener('click', (e) => {
+    if (!mobile.matches && subItem && !subItem.contains(e.target as Node)) setSub(false);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      if (isOpen()) setOpen(false, true);
+      else setSub(false);
+      return;
+    }
+
+    // Mantiene el foco dentro del panel mientras está abierto
+    if (e.key === 'Tab' && isOpen() && mobile.matches && menu) {
+      const focusables = Array.from(
+        menu.querySelectorAll<HTMLElement>('a[href], button:not([disabled])'),
+      ).filter((el) => el.offsetParent !== null);
+      if (!focusables.length) return;
+
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+
+      if (!menu.contains(document.activeElement)) {
+        e.preventDefault();
+        first.focus();
+      } else if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+  });
 </script>
 
 <style>
+  /* El vidrio va en un pseudo-elemento: si el desenfoque estuviera en el header
+     mismo, el panel lateral (position: fixed) quedaría "atrapado" dentro de él. */
   .site-header {
     position: fixed;
     z-index: 50;
     top: 0;
     left: 0;
     width: 100%;
+    border-bottom: 1px solid rgba(229, 229, 234, 0.7);
+  }
+  .site-header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
     background: rgba(248, 248, 250, 0.85);
     -webkit-backdrop-filter: blur(14px) saturate(160%);
     backdrop-filter: blur(14px) saturate(160%);
-    border-bottom: 1px solid rgba(229, 229, 234, 0.7);
   }
 
   .header-inner {
@@ -117,7 +204,14 @@ import Logo from './Logo.astro';
     color: var(--accent-brand);
   }
 
-  /* ---------- Desplegable de Servicios ---------- */
+  /* Solo celular */
+  .drawer-head,
+  .drawer-foot,
+  .nav-overlay {
+    display: none;
+  }
+
+  /* ---------- Desplegable de Servicios (escritorio) ---------- */
   .nav-item {
     position: relative;
     display: flex;
@@ -208,33 +302,109 @@ import Logo from './Logo.astro';
     margin: 5px 0;
   }
 
+  :global(html.no-scroll) {
+    overflow: hidden;
+  }
+
+  /* =====================  CELULAR: panel lateral  ===================== */
   @media (max-width: 768px) {
     .menu-toggle {
       display: block;
     }
 
+    .nav-overlay {
+      display: block;
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      background: rgba(17, 17, 17, 0.5);
+      -webkit-backdrop-filter: blur(4px);
+      backdrop-filter: blur(4px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .site-header.menu-open .nav-overlay {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
     .main-nav {
-      position: absolute;
-      top: var(--header-h);
-      left: 0;
+      position: fixed;
+      top: 0;
       right: 0;
-      background: var(--bg-primary);
-      border-bottom: 1px solid var(--border);
-      display: none;
-      padding: 18px 16px 22px;
+      z-index: 2;
+      height: 100vh;
+      height: 100dvh;
+      width: min(86vw, 360px);
+      padding: 20px 24px 28px;
+      display: flex;
       flex-direction: column;
       align-items: stretch;
-      gap: 5px;
+      gap: 0;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      font-size: 15px;
+      color: #fff;
+      background:
+        radial-gradient(circle 380px at 100% 0%, rgba(227, 120, 211, 0.32), transparent),
+        var(--text-primary);
+      box-shadow: -24px 0 60px rgba(0, 0, 0, 0.35);
+      transform: translateX(100%);
+      visibility: hidden;
+      transition:
+        transform 0.35s var(--ease-out),
+        visibility 0s linear 0.35s;
     }
     .main-nav.is-open {
+      transform: none;
+      visibility: visible;
+      transition:
+        transform 0.35s var(--ease-out),
+        visibility 0s;
+    }
+
+    .drawer-head {
       display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .drawer-head :global(.brand) {
+      color: #fff;
+    }
+    .drawer-head :global(.brand-mark) {
+      border: 1px solid #333;
+    }
+    .drawer-close {
+      display: grid;
+      place-items: center;
+      margin-right: -10px;
+      padding: 10px;
+      border: 0;
+      background: none;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .main-nav > a:not(.btn),
+    .nav-item {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
     }
     .main-nav > a:not(.btn),
     .nav-item > a {
-      padding: 12px 5px;
+      padding: 16px 0;
+      color: #fff;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
     }
-    .main-nav .btn {
-      margin-top: 8px;
+    .main-nav > a:not(.btn) {
+      display: block;
+    }
+    .main-nav > a:not(.btn):hover,
+    .nav-item > a:hover {
+      color: var(--accent-brand);
     }
 
     .nav-item {
@@ -245,18 +415,23 @@ import Logo from './Logo.astro';
       flex: 1;
     }
     .sub-toggle {
-      padding: 12px;
+      padding: 14px;
+      margin-right: -14px;
+      color: #fff;
     }
 
-    /* En celular los servicios se despliegan debajo, como lista */
+    /* Los servicios se despliegan debajo, como lista */
     .submenu {
       position: static;
       display: none;
       width: 100%;
       min-width: 0;
-      padding: 0 0 6px 14px;
+      margin: 0 0 14px 4px;
+      padding: 0 0 0 14px;
       background: transparent;
       border: 0;
+      border-left: 2px solid rgba(227, 120, 211, 0.5);
+      border-radius: 0;
       box-shadow: none;
       opacity: 1;
       visibility: visible;
@@ -267,6 +442,63 @@ import Logo from './Logo.astro';
     }
     .nav-item.is-open > .submenu {
       display: block;
+    }
+    .submenu a {
+      padding: 10px 0;
+      border-radius: 0;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 15px;
+      font-weight: 600;
+    }
+    .submenu a:hover {
+      background: transparent;
+      color: var(--accent-brand);
+    }
+
+    .main-nav .btn {
+      width: 100%;
+      min-height: 50px;
+      margin-top: 28px;
+      background: #fff;
+      border-color: #fff;
+      color: #111;
+      font-size: 14px;
+    }
+    .main-nav .btn:hover {
+      background: #ececf1;
+      border-color: #ececf1;
+      color: #111;
+    }
+
+    .drawer-foot {
+      display: block;
+      margin-top: auto;
+      padding-top: 28px;
+    }
+    .drawer-socials {
+      list-style: none;
+      display: flex;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+    }
+    .drawer-socials a {
+      display: grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 50%;
+      color: #fff;
+      transition:
+        color 0.2s,
+        background 0.2s,
+        border-color 0.2s;
+    }
+    .drawer-socials a:hover {
+      background: #fff;
+      border-color: #fff;
+      color: #111;
     }
   }
 </style>
