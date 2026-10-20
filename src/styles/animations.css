@@ -234,22 +234,6 @@
     }
 }
 
-/* ===== Alta conversión: se expande al hacer scroll (solo escritorio) ===== */
-@keyframes spotlight-expand {
-  from { clip-path: inset(0 var(--spot-inset, 0px) round 32px); }
-  to   { clip-path: inset(0 0 round 0); }
-}
-
-@media (prefers-reduced-motion: no-preference) and (min-width: 1025px) {
-  @supports (animation-timeline: view()) {
-    .spotlight {
-      --spot-inset: clamp(0px, calc((100vw - 1160px) / 2 - 24px), 3vw);
-      animation: spotlight-expand linear both;
-      animation-timeline: view();
-      animation-range: entry 0% entry 100%;
-    }
-  }
-}
 
 /* ===== Brillo que sigue al cursor + levantado ===== */
 .feature-section.is-icon .feature-card {
