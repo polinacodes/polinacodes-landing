@@ -14,7 +14,7 @@ export const buildServiceSchema = (service: Service, page: ServicePage) => ({
   name: service.name,
   serviceType: service.name,
   description: page.seoDescription,
-  url: `${site.url}/servicios/${service.slug}`,
+  url: `${site.url}/servicios/${service.slug}/`,
   provider: {
     '@type': 'ProfessionalService',
     name: `${site.name} — Desarrollo web freelance`,
@@ -30,7 +30,7 @@ export const buildBreadcrumbSchema = (service: Service) => ({
   '@type': 'BreadcrumbList',
   itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'Inicio', item: `${site.url}/` },
-    { '@type': 'ListItem', position: 2, name: 'Servicios', item: `${site.url}/servicios` },
-    { '@type': 'ListItem', position: 3, name: service.name, item: `${site.url}/servicios/${service.slug}` },
+    { '@type': 'ListItem', position: 2, name: 'Servicios', item: `${site.url}/servicios/` },
+    { '@type': 'ListItem', position: 3, name: service.name, item: `${site.url}/servicios/${service.slug}/` },
   ],
 });

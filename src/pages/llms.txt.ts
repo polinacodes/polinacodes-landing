@@ -5,7 +5,7 @@ import { site } from '../config/site';
 // Genera /llms.txt a partir de tus datos, así se mantiene al día solo.
 export const GET: APIRoute = () => {
   const serviceLines = services.map((s) => {
-    const url = s.hasPage ? `${site.url}/servicios/${s.slug}` : `${site.url}/servicios`;
+    const url = s.hasPage ? `${site.url}/servicios/${s.slug}/` : `${site.url}/servicios/`;
     return `- [${s.name}](${url}): ${s.summary}`;
   });
 

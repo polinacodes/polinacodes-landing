@@ -46,7 +46,7 @@ const socials = [
           {
             services.map((s) => (
               <li>
-                <a href={s.hasPage ? `/servicios/${s.slug}` : '/#servicios'}>{s.name}</a>
+                <a href={s.hasPage ? `/servicios/${s.slug}/` : '/#servicios'}>{s.name}</a>
               </li>
             ))
           }

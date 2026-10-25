@@ -23,7 +23,7 @@ const navLinks = [
 ];
 
 const legalLinks = [
-  { label: "Política de privacidad", href: "/privacidad" },
+  { label: "Política de privacidad", href: "/privacidad/" },
   // { label: 'Aviso legal', href: '/aviso-legal' },
 ];
 ---
@@ -61,7 +61,7 @@ const legalLinks = [
           {
             services.map((s) => (
               <li>
-                <a href={s.hasPage ? `/servicios/${s.slug}` : "/#servicios"}>
+                <a href={s.hasPage ? `/servicios/${s.slug}/` : "/#servicios"}>
                   {s.name}
                 </a>
               </li>
