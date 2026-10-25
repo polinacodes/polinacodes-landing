@@ -58,10 +58,10 @@ const { defaultService } = Astro.props;
       </div>
 
       <div class="field">
-        <label for="service">Servicio que necesitas</label>
+        <label for="service">Servicio que necesitás</label>
         <select id="service" name="service" required>
           <option value="" selected={!defaultService}
-            >Selecciona una opción</option
+            >Seleccioná una opción</option
           >
           {
             services.map((s) => (
@@ -76,7 +76,7 @@ const { defaultService } = Astro.props;
       <div class="field">
         <label for="budget">Presupuesto estimado</label>
         <select id="budget" name="budget" required>
-          <option value="">Selecciona un rango</option>
+          <option value="">Seleccioná un rango</option>
           <option>Hasta USD 500</option>
           <option>USD 500–1.000</option>
           <option>USD 1.000–2.500</option>
@@ -86,7 +86,7 @@ const { defaultService } = Astro.props;
       </div>
 
       <div class="field">
-        <label for="message">Contanos brevemente sobre el proyecto</label>
+        <label for="message">Contame brevemente sobre el proyecto</label>
         <textarea id="message" name="message" rows="4" required></textarea>
       </div>
 
@@ -134,7 +134,7 @@ const { defaultService } = Astro.props;
       if (!form.checkValidity()) {
         form.reportValidity();
         status.className = "form-status error";
-        status.textContent = "Revisa los campos obligatorios antes de enviar.";
+        status.textContent = "Revisá los campos obligatorios antes de enviar.";
         return;
       }
 
@@ -153,12 +153,12 @@ const { defaultService } = Astro.props;
 
         status.className = "form-status success";
         status.textContent =
-          "¡Gracias! Recibimos tu consulta, te respondemos a la brevedad.";
+          "¡Gracias! Recibí tu consulta, te respondo a la brevedad.";
         form.reset();
       } catch {
         status.className = "form-status error";
         status.textContent =
-          "No pude enviar el mensaje. Probá de nuevo o escribinos a hola@polinacodes.dev.";
+          "No pude enviar el mensaje. Probá de nuevo o escribime a hola@polinacodes.dev.";
       } finally {
         if (submit) submit.disabled = false;
       }

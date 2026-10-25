@@ -23,8 +23,6 @@ export const buildServiceSchema = (service: Service, page: ServicePage) => ({
   areaServed,
 });
 
-// Dos niveles porque todavía no existe una página /servicios.
-// Cuando la crees, sumá el nivel intermedio acá y en ServiceHero.astro.
 export const buildBreadcrumbSchema = (service: Service) => ({
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
