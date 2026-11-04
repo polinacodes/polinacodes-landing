@@ -8,7 +8,7 @@
   --bg-card: #FFFFFF;
   --text-primary: #111111;
   --text-secondary: #555555;
-  --accent-brand: #E378D3;
+  --accent-brand: #F077AF;
   --btn-primary-bg: #111111;
   --btn-primary-text: #FFFFFF;
   --border: #E5E5EA;
@@ -130,7 +130,7 @@ textarea:focus-visible {
   font-weight: 800;
   margin-top: 14px;
 }
-.text-link:hover { color: #9d4192; }
+.text-link:hover { color: #B8256A; }
 
 ::selection {
   background: var(--accent-brand);

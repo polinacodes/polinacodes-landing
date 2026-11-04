@@ -28,6 +28,7 @@ const groups: Array<[selector: string, variant: Variant]> = [
   ['.start-media', 'right'],
   ['.spot-copy > *', 'up'],
   ['.spot-card', 'scale'],
+  ['.case-reveal', 'up'],
 ];
 
 const STEP = 90; // ms entre elementos que aparecen a la vez

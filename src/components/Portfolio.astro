@@ -30,9 +30,9 @@ const {
           </div>
           <p class="section-lead">{intro}</p>
         </div>
-        <div class="project-grid">
+        <div class:list={["project-grid", { "is-single": projects.length === 1 }]}>
           {projects.map((project: Project) => (
-            <ProjectCard project={project} />
+            <ProjectCard project={project} wide={projects.length === 1} />
           ))}
         </div>
       </div>
@@ -65,6 +65,9 @@ const {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
+  }
+  .project-grid.is-single {
+    grid-template-columns: 1fr;
   }
 
   @media (max-width: 768px) {

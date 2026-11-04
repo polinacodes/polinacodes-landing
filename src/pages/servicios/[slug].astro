@@ -94,9 +94,9 @@ const relatedProjects = getProjectsByService(service.slug);
 
   <Portfolio
     projects={relatedProjects}
-    eyebrow="PROYECTOS"
-    title="Trabajos de este servicio"
-    intro="Algunos proyectos similares al que podemos construir juntos."
+    eyebrow={page.projectsHeading?.eyebrow ?? "PROYECTOS"}
+    title={page.projectsHeading?.title ?? "Trabajos de este servicio"}
+    intro={page.projectsHeading?.intro ?? "Algunos proyectos similares al que podemos construir juntos."}
   />
 
   <StartChecklist

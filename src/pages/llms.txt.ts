@@ -22,6 +22,7 @@ export const GET: APIRoute = () => {
     '',
     `- [Todos los servicios](${site.url}/servicios)`,
     `- [Proyectos](${site.url}/#portfolio)`,
+    `- [Caso de estudio: Nailary, app de turnos para manicuras](${site.url}/proyectos/nailary/)`,
     `- [Preguntas frecuentes](${site.url}/#faqs)`,
     `- [Contacto](${site.url}/#contacto)`,
     '',

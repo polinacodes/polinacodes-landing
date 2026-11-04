@@ -1,0 +1,713 @@
+---
+import { Image } from "astro:assets";
+import ArrowRight from "@lucide/astro/icons/arrow-right";
+import ArrowUpRight from "@lucide/astro/icons/arrow-up-right";
+import Check from "@lucide/astro/icons/check";
+import MainLayout from "../../layouts/MainLayout.astro";
+import FeatureGrid from "../../components/FeatureGrid.astro";
+import CtaStrip from "../../components/CtaStrip.astro";
+import Contact from "../../components/Contact.astro";
+import { site } from "../../config/site";
+import type { FeatureIcon } from "../../data/servicePages";
+import heroLaptop from "../../assets/projects/nailary/hero-laptop.webp";
+import heroMobile from "../../assets/projects/nailary/hero-mobile.webp";
+import agendaLaptop from "../../assets/projects/nailary/agenda-laptop.webp";
+import reservasMobile from "../../assets/projects/nailary/reservas-mobile.webp";
+import landingLaptop from "../../assets/services/landings-hero.avif";
+
+const nailaryUrl = "https://nailary.app/";
+const pageUrl = `${site.url}/proyectos/nailary/`;
+
+const facts = [
+  { label: "Mi rol", value: "Diseño y desarrollo full-stack" },
+  { label: "Tipo", value: "App web instalable (PWA)" },
+  { label: "Estado", value: "En línea, en etapa de lanzamiento" },
+];
+
+const challenges = [
+  {
+    title: "Reservar sin ida y vuelta",
+    text: "Que los clientes elijan servicio, día y horario solos, sin crear una cuenta ni descargar nada.",
+  },
+  {
+    title: "Precio y tiempo reales",
+    text: "No es lo mismo colocar extensiones que hacer un service, y un retiro suma minutos y plata. El sistema tenía que calcularlo solo.",
+  },
+  {
+    title: "Una sola agenda",
+    text: "Los turnos online y los que llegan por WhatsApp o en persona tenían que convivir sin pisarse.",
+  },
+];
+
+const booking = [
+  "Cada profesional tiene su propio link y los clientes reservan desde el navegador.",
+  "Solo se ofrecen horarios libres: el sistema respeta descansos, vacaciones y feriados.",
+  "La confirmación llega por mail con los datos del turno y un archivo .ics para sumarlo al calendario.",
+];
+
+const agenda = [
+  "Vista por día, semana o mes, con el estado de cada turno.",
+  "Los turnos pedidos por WhatsApp o en persona se cargan a mano y se mezclan con los online sin superponerse.",
+  "Fichas de clientes con visitas, próximos turnos y notas.",
+];
+
+const features: { title: string; text: string; icon: FeatureIcon }[] = [
+  {
+    icon: "list-checks",
+    title: "Servicios con opciones",
+    text: "Cada servicio puede tener variantes y extras. Precio y duración se calculan solos según lo que elija el cliente.",
+  },
+  {
+    icon: "layout-dashboard",
+    title: "Varios servicios en un turno",
+    text: "Se pueden combinar servicios en una misma reserva, y la agenda bloquea el tiempo total.",
+  },
+  {
+    icon: "clipboard-check",
+    title: "Onboarding con plantillas",
+    text: "Plantillas de servicios frecuentes del rubro: cada profesional parte de ahí y carga sus precios y tiempos.",
+  },
+  {
+    icon: "smartphone",
+    title: "PWA instalable",
+    text: "La profesional la instala como app en el celu, la tablet o la compu, sin pasar por una tienda de aplicaciones.",
+  },
+  {
+    icon: "calendar-check",
+    title: "Reglas de reserva",
+    text: "Anticipación mínima y máxima para reservar, y bloqueo de vacaciones y feriados.",
+  },
+  {
+    icon: "mail",
+    title: "Mails transaccionales",
+    text: "Enviados con Resend: confirmación del turno, verificación de cuenta y recuperación de contraseña.",
+  },
+];
+
+// Resultados de PageSpeed Insights en celular. Si cambia un puntaje, editá solo el número.
+const scores = [
+  { value: 98, label: "Rendimiento" },
+  { value: 100, label: "Accesibilidad" },
+  { value: 100, label: "Prácticas recomendadas" },
+  { value: 100, label: "SEO" },
+];
+
+const stack = [
+  { area: "Frontend", tools: "React 19, Vite y TypeScript" },
+  { area: "Backend", tools: "Express 5 y TypeScript" },
+  { area: "Base de datos", tools: "PostgreSQL en Neon" },
+  { area: "Mails", tools: "Resend" },
+  { area: "Cloudflare", tools: "R2, Turnstile, DNS y Email Routing" },
+  { area: "Hosting", tools: "Vercel" },
+];
+
+const decisions = [
+  {
+    title: "Un horario, un solo turno",
+    text: "Al reservar, la disponibilidad se vuelve a comprobar dentro de una transacción con bloqueos en PostgreSQL, para que dos personas no se queden con el mismo horario.",
+  },
+  {
+    title: "Un historial que no cambia",
+    text: "Cada turno guarda el nombre, el precio y la duración que tenía el servicio al reservarse. Si mañana cambia el catálogo, lo anterior queda igual.",
+  },
+  {
+    title: "Reservas públicas protegidas",
+    text: "Turnstile frena a los bots y una clave de idempotencia evita que un doble clic genere dos turnos.",
+  },
+];
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Nailary",
+    url: nailaryUrl,
+    applicationCategory: "BusinessApplication",
+    operatingSystem: "Web",
+    description:
+      "App web de turnos para manicuras, con reservas online, agenda, clientes y servicios con opciones.",
+    creator: {
+      "@type": "ProfessionalService",
+      name: `${site.name} — Desarrollo web freelance`,
+      url: `${site.url}/`,
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Inicio", item: `${site.url}/` },
+      { "@type": "ListItem", position: 2, name: "Servicios", item: `${site.url}/servicios/` },
+      { "@type": "ListItem", position: 3, name: "Sistemas a medida", item: `${site.url}/servicios/sistemas-a-medida/` },
+      { "@type": "ListItem", position: 4, name: "Nailary", item: pageUrl },
+    ],
+  },
+];
+---
+
+<MainLayout
+  title="Nailary: caso de estudio de una app de turnos | Polinacodes"
+  description="Cómo diseñé y desarrollé Nailary, una app de turnos para manicuras con reservas online, agenda y PWA, en React, Express y PostgreSQL."
+  image="/og-nailary.jpg"
+  imageAlt="Nailary: turnos online para manicuras, en laptop y celular"
+  schema={schema}
+>
+  <section class="case-hero">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Ruta de navegación">
+        <ol>
+          <li><a href="/">Inicio</a></li>
+          <li><a href="/servicios/">Servicios</a></li>
+          <li><a href="/servicios/sistemas-a-medida/">Sistemas a medida</a></li>
+          <li aria-current="page">Nailary</li>
+        </ol>
+      </nav>
+
+      <div class="case-hero-grid">
+        <div>
+          <p class="eyebrow">CASO DE ESTUDIO</p>
+          <h1>Nailary: la app de turnos que diseñé y desarrollé para manicuras</h1>
+          <p class="case-lead">
+            Un producto completo, de la landing a la agenda: los clientes reservan solos
+            desde un link y cada turno aparece en el panel de la profesional.
+          </p>
+          <div class="case-actions">
+            <a class="btn" href={nailaryUrl} target="_blank" rel="noopener noreferrer">
+              Visitar Nailary <ArrowUpRight size={16} aria-hidden="true" />
+            </a>
+            <a class="btn btn-ghost" href="#contacto">Quiero un sistema a medida</a>
+          </div>
+        </div>
+
+        <div class="case-devices">
+          <Image
+            class="device-laptop"
+            src={heroLaptop}
+            alt="Panel de Nailary en una laptop, con los turnos del día y el link de reservas"
+            widths={[480, 720, 1000, 1200]}
+            sizes="(max-width: 900px) 85vw, 580px"
+            loading="eager"
+            fetchpriority="high"
+          />
+          <Image
+            class="device-phone"
+            src={heroMobile}
+            alt="El mismo panel de Nailary en un celular"
+            widths={[180, 360]}
+            sizes="(max-width: 900px) 25vw, 160px"
+            loading="eager"
+          />
+        </div>
+      </div>
+
+      <dl class="case-facts">
+        {facts.map((fact) => (
+          <div>
+            <dt>{fact.label}</dt>
+            <dd>{fact.value}</dd>
+          </div>
+        ))}
+      </dl>
+      <p class="case-note">Las capturas de esta página usan datos de ejemplo.</p>
+    </div>
+  </section>
+
+  <section class="section case-white">
+    <div class="container case-split">
+      <div class="section-intro">
+        <p class="eyebrow">EL PUNTO DE PARTIDA</p>
+        <h2 class="section-title">Una agenda que vive en los chats</h2>
+        <p class="section-lead">
+          Fui manicura, así que conozco el problema de adentro: los turnos se coordinan por
+          WhatsApp, con idas y vueltas para acordar servicio, precio y horario. Tenía esta idea
+          en mente desde hacía años, y quise resolverla con una herramienta pensada para cómo
+          se trabaja en el rubro.
+        </p>
+      </div>
+      <ul class="challenge-list">
+        {challenges.map((item) => (
+          <li class="case-reveal">
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-intro case-heading">
+        <p class="eyebrow">LO QUE CONSTRUÍ</p>
+        <h2 class="section-title">Dos caras del mismo sistema</h2>
+      </div>
+
+      <div class="case-row">
+        <div class="case-media is-phone case-reveal">
+          <Image
+            src={reservasMobile}
+            alt="Página de reservas de Nailary en un celular, en el paso de elegir día y horario"
+            widths={[300, 600]}
+            sizes="280px"
+          />
+        </div>
+        <div class="case-reveal">
+          <h3>Del lado de los clientes: reservas online con link propio</h3>
+          <ul class="check-list">
+            {booking.map((text) => (
+              <li><Check size={18} stroke-width={2.5} aria-hidden="true" /> {text}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <div class="case-row is-reversed">
+        <div class="case-media case-reveal">
+          <Image
+            src={agendaLaptop}
+            alt="Agenda semanal de Nailary en una laptop"
+            widths={[480, 720, 1200]}
+            sizes="(max-width: 900px) 90vw, 640px"
+          />
+        </div>
+        <div class="case-reveal">
+          <h3>Del lado de la profesional: agenda y clientes en un panel</h3>
+          <ul class="check-list">
+            {agenda.map((text) => (
+              <li><Check size={18} stroke-width={2.5} aria-hidden="true" /> {text}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <FeatureGrid
+    eyebrow="EN DETALLE"
+    title="Lo que hace que sirva para el rubro"
+    items={features}
+    tone="white"
+  />
+
+  <CtaStrip text="¿Necesitás un sistema así para tu negocio?" />
+
+  <section class="section" id="landing">
+    <div class="container case-landing">
+      <div>
+        <div class="section-intro">
+          <p class="eyebrow">LA LANDING</p>
+          <h2 class="section-title">Rápida en el celular y fácil de encontrar</h2>
+          <p class="section-lead">
+            La pre-rendericé dentro del mismo proyecto: el HTML llega listo, sin esperar a que
+            cargue React. Eso ayuda a la velocidad y a que buscadores e IAs puedan leerla, y
+            además explica el producto con funciones, pasos y preguntas frecuentes.
+          </p>
+        </div>
+        <ul class="scores case-reveal" aria-label="Resultados de PageSpeed Insights en celular">
+          {scores.map((score) => (
+            <li>
+              <div class="gauge">
+                <svg viewBox="0 0 120 120" aria-hidden="true">
+                  <circle class="gauge-bg" cx="60" cy="60" r="54" pathLength="100" />
+                  <circle
+                    class="gauge-arc"
+                    cx="60"
+                    cy="60"
+                    r="54"
+                    pathLength="100"
+                    stroke-dasharray={`${score.value} 100`}
+                  />
+                </svg>
+                <strong>{score.value}</strong>
+              </div>
+              <span>{score.label}</span>
+            </li>
+          ))}
+        </ul>
+        <p class="case-note case-reveal">Resultados de PageSpeed Insights en celular. En escritorio, 100 en las cuatro.</p>
+      </div>
+      <div class="case-media case-reveal">
+        <Image
+          src={landingLaptop}
+          alt="Landing de Nailary en una laptop"
+          widths={[480, 720, 1200]}
+          sizes="(max-width: 900px) 90vw, 600px"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section case-white">
+    <div class="container">
+      <div class="section-intro case-heading">
+        <p class="eyebrow">CÓMO ESTÁ HECHA</p>
+        <h2 class="section-title">El stack y las decisiones que lo sostienen</h2>
+      </div>
+      <div class="case-split">
+        <dl class="stack-list case-reveal">
+          {stack.map((row) => (
+            <div>
+              <dt>{row.area}</dt>
+              <dd>{row.tools}</dd>
+            </div>
+          ))}
+        </dl>
+        <ul class="challenge-list">
+          {decisions.map((item) => (
+            <li class="case-reveal">
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <Contact defaultService="sistemas-a-medida" />
+</MainLayout>
+
+<style>
+  .case-hero {
+    padding: 150px 0 80px;
+  }
+
+  .breadcrumb ol {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 0;
+    margin: 0 0 28px;
+    font-size: 13px;
+    color: #666;
+  }
+  .breadcrumb li + li::before {
+    content: "/";
+    margin-right: 8px;
+    color: #bbb;
+  }
+  .breadcrumb a:hover {
+    color: #B8256A;
+  }
+  .breadcrumb li[aria-current="page"] {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  .case-hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: 48px;
+    align-items: center;
+  }
+
+  .case-hero h1 {
+    font-size: clamp(32px, 3.8vw, 52px);
+    line-height: 1.05;
+    letter-spacing: -0.05em;
+    margin: 0 0 22px;
+  }
+
+  .case-lead {
+    font-size: 18px;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin: 0 0 30px;
+  }
+
+  .case-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  /* Misma composición que el hero de la landing de Nailary; la sombra va por CSS */
+  .case-devices {
+    position: relative;
+    padding-bottom: 4%;
+  }
+  .case-devices :global(.device-laptop) {
+    display: block;
+    width: 94%;
+    height: auto;
+    margin-left: 6%;
+    filter: drop-shadow(0 26px 34px rgba(17, 17, 17, 0.2));
+  }
+  .case-devices :global(.device-phone) {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 26%;
+    height: auto;
+    filter: drop-shadow(0 18px 24px rgba(17, 17, 17, 0.28));
+  }
+
+  .case-facts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 56px 0 0;
+    padding-top: 28px;
+    border-top: 1px solid var(--border);
+  }
+  .case-facts dt {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 4px;
+  }
+  .case-facts dd {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  .case-note {
+    font-size: 13px;
+    color: #666;
+    margin: 18px 0 0;
+  }
+
+  .case-white {
+    background: #fff;
+  }
+
+  .case-split {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 64px;
+    align-items: start;
+  }
+
+  .challenge-list {
+    list-style: none;
+    display: grid;
+    gap: 14px;
+    padding: 0;
+    margin: 0;
+  }
+  .challenge-list li {
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px 24px;
+  }
+  .challenge-list h3 {
+    font-size: 17px;
+    letter-spacing: -0.02em;
+    margin: 0 0 6px;
+  }
+  .challenge-list p {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+
+  .case-heading {
+    margin-bottom: 48px;
+  }
+
+  .case-row {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
+    gap: 64px;
+    align-items: center;
+  }
+  .case-row + .case-row {
+    margin-top: 72px;
+  }
+  .case-row.is-reversed {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr);
+  }
+  .case-row.is-reversed .case-media {
+    order: 2;
+  }
+  .case-row h3 {
+    font-size: clamp(22px, 2.4vw, 30px);
+    line-height: 1.15;
+    letter-spacing: -0.035em;
+    margin: 0 0 22px;
+  }
+
+  .case-media :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 24px 30px rgba(17, 17, 17, 0.18));
+  }
+  .case-media.is-phone :global(img) {
+    width: min(100%, 280px);
+    margin-inline: auto;
+  }
+
+  .check-list {
+    list-style: none;
+    display: grid;
+    gap: 14px;
+    padding: 0;
+    margin: 0;
+  }
+  .check-list li {
+    display: grid;
+    grid-template-columns: 18px 1fr;
+    gap: 12px;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+  .check-list li :global(svg) {
+    color: #B8256A;
+    margin-top: 4px;
+  }
+
+  .case-landing {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: 56px;
+    align-items: center;
+  }
+
+  /* Medidores con el mismo aspecto que PageSpeed Insights */
+  .scores {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+    padding: 24px 12px;
+    margin: 28px 0 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg-card);
+  }
+  .scores li {
+    display: grid;
+    justify-items: center;
+    align-content: start;
+    gap: 10px;
+    text-align: center;
+  }
+  .gauge {
+    position: relative;
+    width: 72px;
+    height: 72px;
+  }
+  .gauge svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+  }
+  .gauge circle {
+    fill: none;
+    stroke-width: 9;
+  }
+  .gauge-bg {
+    fill: #e6f9ee !important;
+    stroke: #d5f5e3;
+  }
+  .gauge-arc {
+    stroke: #0cce6b;
+    stroke-linecap: round;
+  }
+  .scores.is-visible .gauge-arc {
+    animation: gauge-fill 1s var(--ease-out, ease-out) backwards;
+  }
+  @keyframes gauge-fill {
+    from {
+      stroke-dasharray: 0 100;
+    }
+  }
+  .gauge strong {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font-family: ui-monospace, "Roboto Mono", Consolas, Menlo, monospace;
+    font-size: 22px;
+    font-weight: 500;
+    color: #008a3e;
+  }
+  .scores span {
+    font-size: 12px;
+    line-height: 1.35;
+    color: var(--text-secondary);
+  }
+
+  .case-landing .case-media :global(img) {
+    /* Descuenta el aire transparente del mockup, igual que en los heroes */
+    margin-block: -10.6% -9.1%;
+  }
+
+  .stack-list {
+    margin: 0;
+  }
+  .stack-list div {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 12px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .stack-list div:first-child {
+    padding-top: 0;
+  }
+  .stack-list dt {
+    font-size: 13px;
+    color: #666;
+  }
+  .stack-list dd {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  @media (max-width: 900px) {
+    .case-hero-grid,
+    .case-split,
+    .case-row,
+    .case-row.is-reversed,
+    .case-landing {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 36px;
+    }
+    .case-row.is-reversed .case-media {
+      order: 0;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .case-hero {
+      padding: 130px 0 60px;
+    }
+    .case-facts {
+      grid-template-columns: 1fr;
+      margin-top: 40px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .scores.is-visible .gauge-arc {
+      animation: none;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .case-actions .btn {
+      width: 100%;
+    }
+    .gauge {
+      width: 58px;
+      height: 58px;
+    }
+    .gauge strong {
+      font-size: 18px;
+    }
+    .scores span {
+      font-size: 11px;
+    }
+    .stack-list div {
+      grid-template-columns: 100px 1fr;
+    }
+  }
+</style>

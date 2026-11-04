@@ -5,6 +5,8 @@ import glamConfessionsTienda from '../assets/projects/glam-confessions-tienda.we
 import lunatycaTienda from '../assets/projects/lunatyca-tienda.webp';
 import ondoAsesoresLanding from '../assets/projects/ondo-asesores-landing.webp';
 import portfolioPolinacodes from '../assets/projects/portfolio-polinacodes.webp';
+import nailaryPanel from '../assets/projects/nailary/hero-laptop.webp';
+import nailaryLanding from '../assets/services/landings-hero.avif';
 
 export type ProjectMockup = 'shop' | 'agency' | 'crm';
 
@@ -18,11 +20,42 @@ export interface Project {
   url?: string;
   image?: ImageMetadata;
   imageAlt?: string;
+  /** 'device' = mockup con fondo transparente, sobre tarjeta oscura con brillo rosa */
+  imageStyle?: 'photo' | 'device';
+  /** Ruta interna del caso de estudio */
+  caseStudy?: string;
   mockup?: ProjectMockup;
   metric?: { value: string; label: string };
 }
 
 export const projects: Project[] = [
+  {
+    slug: 'nailary',
+    title: 'Nailary',
+    description: 'App de turnos para manicuras: reservas online con link propio, servicios con opciones que calculan precio y tiempo, agenda y clientes. Se instala como PWA.',
+    technologies: ['React', 'Express', 'PostgreSQL', 'TypeScript'],
+    services: ['sistemas-a-medida'],
+    featured: false,
+    url: 'https://nailary.app/',
+    caseStudy: '/proyectos/nailary/',
+    image: nailaryPanel,
+    imageAlt: 'Panel de Nailary en una laptop, con la agenda del día y el link de reservas',
+    imageStyle: 'device',
+  },
+  {
+    slug: 'nailary-landing',
+    title: 'Nailary: landing',
+    description: 'Landing de la app, pre-renderizada dentro del mismo proyecto en React para que cargue rápido en el celular y se pueda indexar sin depender de JavaScript.',
+    technologies: ['React', 'Vite', 'TypeScript'],
+    services: ['landing-pages'],
+    featured: false,
+    url: 'https://nailary.app/',
+    caseStudy: '/proyectos/nailary/#landing',
+    image: nailaryLanding,
+    imageAlt: 'Landing de Nailary en una laptop',
+    imageStyle: 'device',
+    metric: { value: '98', label: 'PageSpeed móvil' },
+  },
   {
     slug: 'abuela-tienda',
     title: 'Abuela',

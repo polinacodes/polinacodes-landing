@@ -47,6 +47,8 @@ export interface ServicePage {
   /** Frase de la franja de CTA que va después de "Qué incluye" */
   midCta: string;
   shortCta?: string;
+  /** Títulos de la sección de proyectos, si no van los genéricos */
+  projectsHeading?: { eyebrow: string; title: string; intro: string };
   /** Bloque propio de cada servicio (evita contenido duplicado entre páginas) */
   deepDive?: {
     eyebrow: string;
@@ -476,6 +478,11 @@ export const servicePages: Partial<Record<ServiceSlug, ServicePage>> = {
     subtitle:
       'Herramientas pensadas para tu forma de trabajar: que tus clientes reserven solos, que las tareas repetitivas se hagan solas y que nadie se quede sin respuesta.',
     heroImage: { src: sistemasHero, alt: 'Laptop mostrando un panel de administración de turnos y reservas online' },
+    projectsHeading: {
+      eyebrow: 'CASO DE ESTUDIO',
+      title: 'Un sistema de turnos que hice de punta a punta',
+      intro: 'Nailary está en línea: mirá qué resuelve y cómo lo construí.',
+    },
     startImage: { src: sistemasStart, alt: 'Escritorio con un cuaderno abierto mostrando un diagrama de flujo de un sistema a medida, junto a una laptop y un café' },
     badges: [
       'Hecho a medida de tu proceso',
