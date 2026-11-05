@@ -325,17 +325,19 @@ const schema = [
           ))}
         </ul>
         <p class="case-note case-reveal">Resultados de PageSpeed Insights en celular. En escritorio, 100 en las cuatro.</p>
+      </div>
+      <div class="landing-visual">
+        <div class="case-media case-reveal">
+          <Image
+            src={landingLaptop}
+            alt="Landing de Nailary en una laptop"
+            widths={[480, 720, 1200]}
+            sizes="(max-width: 900px) 90vw, 600px"
+          />
+        </div>
         <a class="text-link landing-link case-reveal" href={nailaryUrl} target="_blank" rel="noopener noreferrer">
           Ver sitio en vivo →
         </a>
-      </div>
-      <div class="case-media case-reveal">
-        <Image
-          src={landingLaptop}
-          alt="Landing de Nailary en una laptop"
-          widths={[480, 720, 1200]}
-          sizes="(max-width: 900px) 90vw, 600px"
-        />
       </div>
     </div>
   </section>
@@ -633,9 +635,12 @@ const schema = [
     color: var(--text-secondary);
   }
 
+  .landing-visual {
+    text-align: center;
+  }
   .landing-link {
-    display: inline-block;
-    margin-top: 18px;
+    position: relative;
+    margin-top: 28px;
   }
 
   .case-landing .case-media :global(img) {
