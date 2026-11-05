@@ -282,7 +282,7 @@ const socials = [
     line-height: 1.35;
   }
   .submenu a:hover {
-    background: rgba(240, 119, 175, 0.14);
+    background: rgba(var(--brand-rgb), 0.14);
   }
 
   /* ---------- Botón hamburguesa ---------- */
@@ -346,7 +346,7 @@ const socials = [
       font-size: 15px;
       color: #fff;
       background:
-        radial-gradient(circle 380px at 100% 0%, rgba(240, 119, 175, 0.32), transparent),
+        var(--glow-panel),
         var(--text-primary);
       box-shadow: -24px 0 60px rgba(0, 0, 0, 0.35);
       transform: translateX(100%);
@@ -429,7 +429,7 @@ const socials = [
       padding: 0 0 0 14px;
       background: transparent;
       border: 0;
-      border-left: 2px solid rgba(240, 119, 175, 0.5);
+      border-left: 2px solid rgba(var(--brand-rgb), 0.5);
       border-radius: 0;
       box-shadow: none;
       opacity: 1;

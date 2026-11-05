@@ -147,11 +147,7 @@ const icons: Record<FeatureIcon | "check", typeof Check> = {
   /* Variante oscura con icono */
   .is-icon .feature-card {
     background:
-      radial-gradient(
-        circle 220px at 100% 0%,
-        rgba(240, 119, 175, 0.28),
-        transparent
-      ),
+      var(--glow-card),
       var(--text-primary);
     border-color: #2a2a2e;
     padding: 28px;

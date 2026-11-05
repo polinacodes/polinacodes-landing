@@ -9,6 +9,10 @@
   --text-primary: #111111;
   --text-secondary: #555555;
   --accent-brand: #F077AF;
+  --brand-rgb: 240, 119, 175; /* el mismo rosa, para usarlo con transparencia */
+  --accent-soft: #ED95BE; /* carteles de CTA */
+  --glow-card: radial-gradient(circle 240px at 100% 0%, rgba(var(--brand-rgb), .3), transparent); /* tarjetas oscuras */
+  --glow-panel: radial-gradient(circle 520px at 100% 0%, rgba(var(--brand-rgb), .3), transparent); /* secciones y paneles oscuros */
   --btn-primary-bg: #111111;
   --btn-primary-text: #FFFFFF;
   --border: #E5E5EA;

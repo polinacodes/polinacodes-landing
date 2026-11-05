@@ -110,11 +110,7 @@ const icons: Record<SpotlightIcon, typeof Target> = {
 <style>
   .spotlight {
     background:
-      radial-gradient(
-        circle 560px at 100% 0%,
-        rgba(240, 119, 175, 0.35),
-        transparent
-      ),
+      var(--glow-panel),
       var(--text-primary);
     color: #fff;
   }

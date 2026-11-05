@@ -306,7 +306,7 @@ const schema = [
         <ul class="scores case-reveal" aria-label="Resultados de PageSpeed Insights en celular">
           {scores.map((score) => (
             <li>
-              <div class="gauge">
+              <div class="gauge" data-score={score.value}>
                 <svg viewBox="0 0 120 120" aria-hidden="true">
                   <circle class="gauge-bg" cx="60" cy="60" r="54" pathLength="100" />
                   <circle
@@ -366,6 +366,10 @@ const schema = [
 
   <Contact defaultService="sistemas-a-medida" />
 </MainLayout>
+
+<script>
+  import "../../scripts/gauges";
+</script>
 
 <style>
   .case-hero {
@@ -568,7 +572,7 @@ const schema = [
     align-items: center;
   }
 
-  /* Medidores con el mismo aspecto que PageSpeed Insights */
+  /* Medidores con el mismo aspecto que PageSpeed Insights (animación en scripts/gauges.ts) */
   .scores {
     list-style: none;
     display: grid;
@@ -609,14 +613,6 @@ const schema = [
   .gauge-arc {
     stroke: #0cce6b;
     stroke-linecap: round;
-  }
-  .scores.is-visible .gauge-arc {
-    animation: gauge-fill 1s var(--ease-out, ease-out) backwards;
-  }
-  @keyframes gauge-fill {
-    from {
-      stroke-dasharray: 0 100;
-    }
   }
   .gauge strong {
     position: absolute;
@@ -683,12 +679,6 @@ const schema = [
     .case-facts {
       grid-template-columns: 1fr;
       margin-top: 40px;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .scores.is-visible .gauge-arc {
-      animation: none;
     }
   }
 

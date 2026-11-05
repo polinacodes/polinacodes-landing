@@ -86,8 +86,8 @@ const { eyebrow, title, intro, columns, rows, footnote } = Astro.props;
 
   .cmp-table thead th,
   .cmp-table thead td {
-    background: rgba(240, 119, 175, 0.14);
-    border-bottom-color: rgba(240, 119, 175, 0.35);
+    background: rgba(var(--brand-rgb), 0.14);
+    border-bottom-color: rgba(var(--brand-rgb), 0.35);
   }
 
   .cmp-table tbody th {
